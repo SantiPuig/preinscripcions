@@ -18,19 +18,25 @@
 		?>
 
 		<section id="content">
-			<h2>Presentación</h2>
-			<p>Este sitio es una práctica de Santi Puig de uso del Micro Framework de Robert Sallent,
-			para familiarizarnos con la arquitectura modelo-vista-controlador.
+			<h2>CURSOS CEFO</h2>
+			
+			<p>Els cursos de formació professional per a l'ocupació són programes formatius teòrico - pràctics</p>
+			
+			<p> que tenen per finalitat millorar la qualificació professional i/o la capacitat d'inserció laboral</p>
+			
+			<p> mitjançant l'assoliment i el perfeccionament de les competències professionals de les persones treballadores.</p>
+			
+			<p> S'adrecen a persones treballadores en situació d'atur.També hi ha la possibilitat de realitzar formació</p>
+			
+			<p> a distància mitjançant el programa e-formació, que consta de més de 80 especialitats, d'entre 250 i 600 hores de durada.</p>
+			
+            <p> La formació contínua pretén millorar la qualificació professional de les persones treballadores per tal d'adaptar els </p>
+            
+            <p> seus perfils a les necessitats empresarials. Va dirigida principalment a treballadors/ores en actiu, tot i que permet</p>
+            
+            <p> també l'accés de treballadors/ores en situació d'atur.
+
 			</p>
-			<p>El ejemplo utilizado se trata de un mantenimiento de activos informáticos que pueda tener
-			una organización.<P>
-			<p>El caso de uso contemplado, los usuarios no registrados podrán listar los PCs, pero no pueden
-			ver los detalles. Los usuarios registrados podrán ver los detalles de un PC específico.
-			El administrador podrá añadir, modificar y dar de baja los equipos.
-			Un usuario cualquiera puede registrarse, y pasa a ser usuario registrado en el momento que se valide.</p>
-			<p>Es un ejemplo sencillo, utilizando una sola tabla, y un solo modelo (aparte del modelo de usuario
-			que ya nos viene dado con el Framework, y sobre el cual no hemos tenido que hacer nada</p>
-			<p>Más adelante realizaremos otro más complejo que utilice varias tablas relacionadas</p>
 		</section>
 		
 		<?php Template::footer();?>

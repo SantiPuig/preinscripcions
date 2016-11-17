@@ -6,12 +6,12 @@
 			<header>
 				<figure>
 					<a href="index.php">
-						<img alt="Robs Micro Framework logo" src="images/Icon_pc.png" />
+						<img alt="cefo" src="images/CEFO.jpg" />
 					</a>
 				</figure>
 				<hgroup>
-					<h1>Mantenimiento de PCs</h1>
-					<h2>Gestión de activos informáticos y PCs</h2>
+					<h1>Cursos per aturats</h1>
+					<h2>Cursos de Formació professional</h2>
 				</hgroup>
 			</header>
 		<?php }
@@ -20,8 +20,8 @@
 		//PONE EL FORMULARIO DE LOGIN
 		public static function login(){?>
 			<form method="post" id="login" autocomplete="off">
-				<label>User:</label><input type="text" name="user" required="required" />
-				<label>Password:</label><input type="password" name="password" required="required"/>
+				<label>DNI:</label><input type="text" name="user" required="required" />
+				<label>Data de Naixement:</label><input type="text" name="password" required="required"/>
 				<input type="submit" name="login" value="Login" />
 			</form>
 		<?php }
@@ -33,7 +33,7 @@
 				<span>
 					Hola 
 					<a href="index.php?controlador=Usuario&operacion=modificacion" title="modificar datos">
-						<?php echo $usuario->nombre;?></a>
+						<?php echo $usuario->nom;?></a>
 					<span class="mini">
 						<?php echo ' ('.$usuario->email.')';?>
 					</span>
@@ -54,7 +54,6 @@
 			<nav>
 				<ul class="menu">
 					<li><a href="index.php">Inicio</a></li>
-					<li><a href="index.php?controlador=pc">PCs</a><li>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>					
 				</ul>
 				<?php 
@@ -71,16 +70,21 @@
 		//PONE EL PIE DE PAGINA
 		public static function footer(){	?>
 			<footer>
-				<p>
-					<a href="http://recursos.robertsallent.com/mvc/robs_micro_fw_1.0.zip">
-						RobS micro Framework</a> - solo para fines docentes
+				<p>  En utilitzar el cercador de cursos de formació per a una especialitat en concret, us apareixeran tots els cursos relacionats, tant de formació contínua (per a persones treballadores en actiu) com de formació ocupacional (per a persones a l'atur)
+
+Els cursos de formació contínua estan identificats amb la icona
+
+Si només voleu que apareguin els cursos de formació contínua marqueu la casella "Cercar cursos per a persones treballadores en actiu".
+
+Complementàriament, també podeu informar-vos sobre els cursos que desenvolupa la Xarxa FP.CAT. 
+					
 				</p>
-				<p> 
-					<a rel="author" href="http://www.robertsallent.com">Robert Sallent</a>
-					<a href="http://www.twitter.com/robertsallent">
-         				<img class="logo" alt="twitter logo" src="images/logos/twitter.png" />
-					</a> -  
-					<a href="https://www.facebook.com/cifovalles">CIFO del Vallès'16</a>. 
+				<p> <figure>
+					<a href="index.php">
+						<img alt="cefo" src="images/curso3.jpg" />
+					</a>
+				</figure>
+					 
          		</p>
 			</footer>
 		<?php }
