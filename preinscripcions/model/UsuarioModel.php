@@ -105,7 +105,7 @@
 		//de la BDD (o NULL si no existe), a partir de un nombre de usuario
 		public static function getUsuario($u){
 			$user_table = Config::get()->db_user_table;
-			$consulta = "SELECT * FROM $user_table WHERE user='$u';";
+			$consulta = "SELECT * FROM $user_table WHERE DNI='$u';";
 			$resultado = Database::get()->query($consulta);
 			
 			$us = $resultado->fetch_object('UsuarioModel');

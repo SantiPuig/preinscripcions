@@ -23,8 +23,32 @@
 				
 				//tomar los datos que vienen por POST
 				//real_escape_string evita las SQL Injections
-				$u->user = $conexion->real_escape_string($_POST['user']);
-				$u->password = MD5($conexion->real_escape_string($_POST['password']));
+				$u->dni = $conexion->real_escape_string($_POST['user']);
+				$u->data_naixement = $conexion->real_escape_string($_POST['password']);
+				$u->nom= $conexion->real_escape_string($_POST['nom']);
+				$u->cognom1= $conexion->real_escape_string($_POST['cognom1']);
+				$u->cognom2= $conexion->real_escape_string($_POST['cognom2']);
+				$u->estudis= $conexion->real_escape_string($_POST['estudis']);
+				$u->sitaucio_laboral= $conexion->real_escape_string($_POST['itaucio_laboral']);
+				$u->prestacio= $conexion->real_escape_string($_POST['prestacio']);
+				$u->telefon_mobil= $conexion->real_escape_string($_POST['telefon_mobil']);
+				$u->telefon_fix= $conexion->real_escape_string($_POST['telefon_fix']);
+				$u->email= $conexion->real_escape_string($_POST['email']);
+				$u->imatge= Config::get()->default_user_image;
+				
+				//recuperar y guardar la imagen (solamente si ha sido enviada)
+				if($_FILES['imatge']['error']!=4){
+					//el directorio y el tam_maximo se configuran en el fichero config.php
+					$dir = Config::get()->user_image_directory;
+					$tam = Config::get()->user_image_max_size;
+						
+					$upload = new Upload($_FILES['imatge'], $dir, $tam);
+					$u->imatge = $upload->upload_image();
+				}
+				
+				/*
+				 * OLD
+				 *		
 				$u->nombre = $conexion->real_escape_string($_POST['nombre']);
 				$u->email = $conexion->real_escape_string($_POST['email']);
 				$u->imagen = Config::get()->default_user_image;
@@ -38,7 +62,7 @@
 					$upload = new Upload($_FILES['imagen'], $dir, $tam);
 					$u->imagen = $upload->upload_image();
 				}
-								
+				*/				
 				//guardar el usuario en BDD
 				if(!$u->guardar())
 					throw new Exception('No se pudo registrar el usuario');
