@@ -1,67 +1,98 @@
 <?php
 class CursModel{
 	//PROPIEDADES
-	public $id_pc, $marca, $model, $Serial, $RAM, $HD, $MAC,$fecha_compra,$fin_garantia;
+	public $id, $codi, $id_area, $nom, $descripcio, $hores, $data_inici,$data_fi,$horari
+		$torn,$tipus,$requisits;
 		
 	//METODOS
-	//guarda el PC en la BDD
+	//guarda el curs en la BDD
 	public function guardar(){
 		
-		$consulta = "INSERT INTO pcs(id_pc, marca, model, serial, RAM, HD, MAC,fecha_compra,fin_garantia)
-		VALUES ('$this->id_pc','$this->marca','$this->model','$this->Serial',
-		 '$this->RAM', '$this->HD','$this->MAC','$this->fecha_compra','$this->fin_garantia');";
-
+		$consulta = "INSERT INTO cursos(
+			codi, id_area, nom, descripcio, hores, data_inici,data_fi,horari,
+			torn,tipus,requisits)  VALUES
+			('$this->codi',$this->id_area,'$this->nom','$this->descripcio',$this->hores,'$this->data_inici','$this->data_fi','$this->horari',
+			'$this->torn','$this->tipus','$this->requisits')
+		id_pc, marca, model, serial, RAM, HD, MAC,fecha_compra,fin_garantia);";		
 		return Database::get()->query($consulta);
 	}
 
-
-	//actualiza los datos del PC
+	
+	//actualiza los datos del CURSO
 	public function actualizar(){		
-		$consulta = "UPDATE pcs
-		SET	marca='$this->marca',
-		    model='$this->model',
-		    Serial='$this->Serial', 
-		    RAM='$this->RAM',
-		    HD='$this->HD',
-		    MAC='$this->MAC',
-		    fecha_compra='$this->fecha_compra',
-		    fin_garantia='$this->fin_garantia'		
-		WHERE id_pc='$this->id_pc';";
+		$consulta = "UPDATE CURSOS
+		SET	codi='$this->codi', 
+			id_area=$this->id_area, 
+			nom='$this->nom', 
+			descripcio='$this->descripcio', 
+			hores=$this->hores, 
+			data_inici='$this->data_inici',
+			data_fi='$this->data_fi',
+			horari='$this->horari',
+			torn='$this->torn',
+			tipus='$this->tipus',
+			requisits='$this->requisits'		
+		WHERE id=$this->id;";
 		return Database::get()->query($consulta);
 	}
 
 
-	//elimina el PC de la BDD
+	//elimina el curso de la BDD
 	public function borrar(){
 		
-		$consulta = "DELETE FROM pcs WHERE id_pc='$this->id_pc';";
+		$consulta = "DELETE FROM cursos WHERE id=$this->id;";
 		return Database::get()->query($consulta);
 	}
 
 
-	//este método debería retornar un pc a partir de su Id
-	public static function getPc($idpc=0){
-		$consulta = "SELECT * FROM pcs WHERE id_pc=$idpc;";
+	//este método debería retornar un curso a partir de su Id
+	public static function getCurs($idcurs=0){
+		$consulta = "SELECT * FROM cursos WHERE id=$idcurs;";
 		$resultado = Database::get()->query($consulta);
 			
-		$pc = $resultado->fetch_object('PcModel');
+		$curs = $resultado->fetch_object('CursModel');
 		$resultado->free();
 			
-		return $pc;
+		return $curs;
 	}
 	
-	//Este método retorna todos los PCs de la base de datos
-	public static function getPcs(){
-		$consulta = "SELECT * FROM pcs ;";
+	//Este método retorna todos los cursos de la base de datos
+	public static function cursos(){
+		$consulta = "SELECT * FROM cursos ;";
 		$resultado = Database::get()->query($consulta);
 		
-		$pcs=Array();
+		$cursos=Array();
 		
-		while ($pc = $resultado->fetch_object('PcModel'))
-			$pcs[]=$pc;
+		while ($curs = $resultado->fetch_object('CursModel'))
+			$cursos[]=$curs;
 		$resultado->free();
 			
-		return $pcs;
+		return $cursos;
 	}
+	//Este método retorna todos los cursos que coincidan con el filtro pasado.
+	// se pasará por parámetro un array tipo campo:valor que definirá el campo a filtrar y el valor a filtrar
+	public static function cursos($filtros=array()){
+		$consulta = "SELECT * FROM cursos ";
+		$where="";
+		if (is_array($filtros) || is_object($filtros))
+			foreach ($filtros as $campo=>$valor) 
+					$where.=" and $campo='$valor'";
+		if ($where)
+			$consulta.=" where ".substr($where, 5);
+		$consulta.=";";
+			
+		$resultado = Database::get()->query($consulta);
+	
+		$cursos=Array();
+	
+		while ($curs = $resultado->fetch_object('CursModel'))
+			$cursos[]=$curs;
+			$resultado->free();
+				
+		return $cursos;
+	}
+	
+	
+	
 }
 ?>
