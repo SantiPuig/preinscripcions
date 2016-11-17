@@ -1,7 +1,7 @@
 <?php
 class CursModel{
 	//PROPIEDADES
-	public $id, $codi, $id_area, $nom, $descripcio, $hores, $data_inici,$data_fi,$horari
+	public $id, $codi, $id_area, $nom, $descripcio, $hores, $data_inici,$data_fi,$horari,
 		$torn,$tipus,$requisits;
 		
 	//METODOS
@@ -12,15 +12,15 @@ class CursModel{
 			codi, id_area, nom, descripcio, hores, data_inici,data_fi,horari,
 			torn,tipus,requisits)  VALUES
 			('$this->codi',$this->id_area,'$this->nom','$this->descripcio',$this->hores,'$this->data_inici','$this->data_fi','$this->horari',
-			'$this->torn','$this->tipus','$this->requisits')
-		id_pc, marca, model, serial, RAM, HD, MAC,fecha_compra,fin_garantia);";		
+			'$this->torn','$this->tipus','$this->requisits');";
+		//echo $consulta;
 		return Database::get()->query($consulta);
 	}
 
 	
 	//actualiza los datos del CURSO
 	public function actualizar(){		
-		$consulta = "UPDATE CURSOS
+		$consulta = "UPDATE cursos
 		SET	codi='$this->codi', 
 			id_area=$this->id_area, 
 			nom='$this->nom', 
@@ -33,6 +33,7 @@ class CursModel{
 			tipus='$this->tipus',
 			requisits='$this->requisits'		
 		WHERE id=$this->id;";
+		//echo $consulta;
 		return Database::get()->query($consulta);
 	}
 
@@ -71,16 +72,19 @@ class CursModel{
 	}
 	//Este método retorna todos los cursos que coincidan con el filtro pasado.
 	// se pasará por parámetro un array tipo campo:valor que definirá el campo a filtrar y el valor a filtrar
-	public static function cursos($filtros=array()){
+	public static function cursos_filtrats($filtros=array()){
 		$consulta = "SELECT * FROM cursos ";
 		$where="";
 		if (is_array($filtros) || is_object($filtros))
 			foreach ($filtros as $campo=>$valor) 
-					$where.=" and $campo='$valor'";
+					$where.=" and upper($campo) like upper('%$valor%')";
 		if ($where)
 			$consulta.=" where ".substr($where, 5);
+		/*else 
+			echo "No hay where!<br>";*/
 		$consulta.=";";
 			
+		//echo $consulta;
 		$resultado = Database::get()->query($consulta);
 	
 		$cursos=Array();
