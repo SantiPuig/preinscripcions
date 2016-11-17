@@ -68,7 +68,7 @@
 			if(!empty($_POST['login'])){
 				//recuperar los datos que llegan por POST
 				$u = Database::get()->real_escape_string($_POST['user']); //nombre de usuario
-				$p = MD5(Database::get()->real_escape_string($_POST['password'])); //password
+				$p = Database::get()->real_escape_string($_POST['password']); //password
 		
 				self::log_in($u,$p); //llamada al método que realiza login
 			}
