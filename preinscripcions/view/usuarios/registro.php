@@ -18,25 +18,35 @@
 		?>
 		
 		<section id="content">
-			<h2>Formulario de registro</h2>
+			<h2>Formulari de registre</h2>
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
-				<label>User:</label>
+				<label>D.N.I:</label>
 				<input type="text" name="user" required="required" 
-					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracteres (numeros, letras o guión bajo), comenzando por letra"/><br/>
+					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracters (numeros, lletres o guió baix), començant per lletra"/><br/>
 				
 				<label>Password:</label>
 				<input type="password" name="password" required="required" 
-					pattern=".{4,16}" title="4 a 16 caracteres"/><br/>
+					pattern=".{4,16}" title="4 a 16 caracters"/><br/>
 				
-				<label>Nombre:</label>
-				<input type="text" name="nombre" required="required"/><br/>
+				<label>Nom:</label>
+				<input type="text" name="nom" required="required"/><br/>
+				
+				<label>Cognom1:</label>
+				<input type="text" name="cognom1" required="required"/><br/>
+				
+				<label>Cognom2:</label>
+				<input type="text" name="cognom2" required="required"/><br/>
 				
 				<label>Email:</label>
 				<input type="email" name="email" required="required"/><br/>
 				
-				<label>Imagen:</label>
-				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_image_size;?>" />		
-				<input type="file" accept="image/*" name="imagen" />
+				<label>Mobil:</label>
+				<input type="text" name="mobil" required="required"/><br/>
+				
+				<label>Fix:</label>
+				<input type="text" name="fix" required="required"/><br/>
+				
+				
 				<span>max <?php echo intval($max_image_size/1024);?>kb</span><br />
 				
 				<label></label>

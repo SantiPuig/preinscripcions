@@ -61,8 +61,8 @@ a{
 }
 
 img.logo{
-	height: 30px;
-	width: 30px;
+	height: 100px;
+	width: 100px;
 	vertical-align: middle;
 }
 
@@ -105,7 +105,7 @@ header figure{
 }
 
 header figure img{
-	width: 80%;
+	width: 600%;
 }
 
 header hgroup{
@@ -176,7 +176,7 @@ nav ul.menu>li:hover{
 	padding: 20px 0px 20px 0px;
 }
 
-#content p{
+#content p{git
 	text-align: justify;
 }
 
@@ -220,7 +220,7 @@ footer{
 	padding: 20px;
 	background-color: #eef;
 	
-	background-image: url('../images/logos/wide.png');
+	background-image: url('../images/curso2.jpg');
 	background-repeat: no-repeat;
 	background-size: 40%;
 	background-position: right top;

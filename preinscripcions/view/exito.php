@@ -3,7 +3,7 @@
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
-		<title>EXITO</title>
+		<title>EXIT</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
@@ -18,7 +18,7 @@
 		?>
 		
 		<section id="content">
-			<h2>Exito</h2>
+			<h2>Exit</h2>
 			<?php echo '<p>'.$mensaje.'</p>'; ?>
 		</section>
 		

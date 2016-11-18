@@ -3,7 +3,7 @@
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
-		<title>Modificación de datos de usuario</title>
+		<title>Modificació de dades de usuari</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
@@ -11,46 +11,54 @@
 		<?php 
 			Template::header(); //pone el header
 
-			if(!$usuario) Template::login(); //pone el formulario de login
-			else Template::logout($usuario); //pone el formulario de logout
+			if(!$usuari) Template::login(); //pone el formulario de login
+			else Template::logout($usuari); //pone el formulario de logout
 			
-			Template::menu($usuario); //pone el menú
+			Template::menu($usuari); //pone el menú
 		?>
 		
 		<section id="content">
-			<a class="derecha" href="index.php?controlador=Usuario&operacion=baja">Darse de baja</a>
+			<a class="derecha" href="index.php?controlador=Usuario&operacion=baja">Donar_se de baixa</a>
 			
-			<h2>Formulario de modificación de datos</h2>
+			<h2>Formulari de modificació de dades</h2>
 			
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
 				
 				<figure>
-					<img class="imagenactual" src="<?php echo $usuario->imagen;?>" 
-						alt="<?php echo  $usuario->user;?>" />
+					<img class="imagenactual" src="<?php echo $usuari->imagen;?>" 
+						alt="<?php echo  $usuari->user;?>" />
 				</figure>
 				
 				
 				<label>User:</label>
 				<input type="text" name="user" required="required" 
-					readonly="readonly" value="<?php echo $usuario->user;?>" /><br/>
+					readonly="readonly" value="<?php echo $usuari->user;?>" /><br/>
 				
 				<label>Password actual:</label>
 				<input type="password" name="password" required="required" /><br/>
 				
-				<label>Nuevo password:</label>
+				<label>Nou password:</label>
 				<input type="password" name="newpassword" pattern=".{4,16}" title="4 a 16 caracteres"/>
 				<span class="mini">En blanco para no modificar el actual</span><br/>
 				
 				
-				<label>Nombre:</label>
-				<input type="text" name="nombre" required="required" 
-					value="<?php echo $usuario->nombre;?>"/><br/>
+				<label>Nom:</label>
+				<input type="text" name="nom" required="required" 
+					value="<?php echo $usuari->nom;?>"/><br/>
+					
+				<label>cognom1:</label>
+				<input type="text" name="cognom1" required="required" 
+					value="<?php echo $usuari->cognom1;?>"/><br/>
+					
+				<label>cognom2:</label>
+				<input type="text" name="cognom2" required="required" 
+					value="<?php echo $usuari->cognom2;?>"/><br/>	
 				
 				<label>Email:</label>
 				<input type="email" name="email" required="required" 
-					value="<?php echo $usuario->email;?>"/><br/>
+					value="<?php echo $usuari->email;?>"/><br/>
 				
-				<label>Nueva imagen:</label>
+				<label>Nova imatge:</label>
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_image_size;?>" />		
 				<input type="file" accept="image/*" name="imagen" />
 				<span class="mini">max <?php echo intval($max_image_size/1024);?>kb</span><br />
