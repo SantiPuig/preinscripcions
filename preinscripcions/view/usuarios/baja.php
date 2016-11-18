@@ -3,7 +3,7 @@
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
-		<title>Baixa de usuaris</title>
+		<title>BAIXA DE USUARIS</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
@@ -12,21 +12,20 @@
 			Template::header(); //pone el header
 
 			if(!$usuario) Template::login(); //pone el formulario de login
-			else Template::logout($usuari); //pone el formulario de logout
+			else Template::logout($usuario); //pone el formulario de logout
 			
-			Template::menu($usuari); //pone el menú
+			Template::menu($usuario); //pone el menú
 		?>
 		
 		<section id="content">
 			<h2>Formulari de baixa de usuari</h2>
-			<p>Por favor, confirma la teva solicitud de baixa introduint el password associat al teu compte.</p>
+			<p>Si us plau, confirma la teva solicitud de baixa introduint el DNI associat al teu compte.</p>
 		
 			<form method="post" autocomplete="off">
-				<label>Usuari:</label>
-				<input type="text" readonly="readonly" value="<?php echo $usuari->user;?>" /><br/>
+
 				
-				<label>Password:</label>
-				<input type="password" name="password" required="required"/><br/>
+				<label>DNI:</label>
+				<input type="text" name="DNI" required="required"/><br/>
 				
 				<label></label>
 				<input type="submit" name="confirmar" value="Confirmar"/><br/>

@@ -53,14 +53,16 @@
 		public static function menu($usuario){ ?>
 			<nav>
 				<ul class="menu">
-					<li><a href="index.php">Inicio</a></li>
-					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>					
+					<li><a href="index.php">Inici</a></li>
+					<li><a href="index.php?controlador=curso&operacion=listar">Cursos</a></li>
+					<li><a href="index.php?controlador=Usuario&operacion=registro">Registre</a></li>
+							
 				</ul>
 				<?php 
 				//pone el menú del administrador
 				if($usuario && $usuario->admin){	?>
 				<ul class="menu">
-					<li><a href="index.php?controlador=pc&operacion=nuevo">NuevoPc</a></li>
+					<li><a href="index.php?controlador=pc&operacion=nuevo">Nuevo curso</a></li>
 				</ul>
 							
 				<?php }	?>
@@ -74,7 +76,7 @@
 
 Els cursos de formació contínua estan identificats amb la icona
 
-Si només voleu que apareguin els cursos de formació contínua marqueu la casella "Cercar cursos per a persones treballadores en actiu".
+Si només voleu que apareguin els cursos de formació contínua marqueu la casella "Cursos".
 
 Complementàriament, també podeu informar-vos sobre els cursos que desenvolupa la Xarxa FP.CAT. 
 					
