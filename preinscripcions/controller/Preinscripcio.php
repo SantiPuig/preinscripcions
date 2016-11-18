@@ -1,5 +1,5 @@
 <?php
-   class Curso extends Controller{
+   class Preinscripcio extends Controller{
    	public function index() { //default method
    		//echo('ahora voy a listar');
    		$this->listar();
@@ -15,37 +15,11 @@
    	$datos['usuario']=Login::getUsuario();
    	$datos['cursos']=$cs;
    	
-   	
    	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
    	  $this->load_view('view/cursos/lista.php',$datos);
    	else 
    		$this->load_view('view/cursos/admin/lista_admin.php',$datos);
    	
-   }
-   /*
-    *  igual que la funcion de listar, pero acepta parámetros via post.
-    */
-   public function buscar() {
-   	//demanar al model que recuperi tots els cursos
-   	$this->load('model/cursmodel.php');
-   	$filtre=array();
-   	foreach ($_POST as $clau=>$valor)
-   		$filtre[$clau]=$valor;
-   	
-   	$cs=CursModel::cursos_filtrats($filtre);
-   
-   	//passar els pcs a la vista
-   	$datos=array();
-   	$datos['usuario']=Login::getUsuario();
-   	$datos['cursos']=$cs;
-   	$datos['filtre']=$filtre;
-   
-   
-   	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
-   		$this->load_view('view/cursos/lista.php',$datos);
-   		else
-   			$this->load_view('view/cursos/admin/lista_admin.php',$datos);
-   
    }
    	
    //metode per veure un curs en concret.
