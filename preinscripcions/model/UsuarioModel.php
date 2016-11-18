@@ -3,7 +3,7 @@
 		//PROPIEDADES
 	// antic:	public $user, $password, $nombre, $privilegio=100, $admin=0, $email, $imagen='';
 		// New By Santi Puig
-		public $id,$dni,$nom,$cognom1,$cognom2,$data_naixement,$estudis,$sitaucio_laboral,
+		public $id,$dni,$nom,$cognom1,$cognom2,$data_naixement,$estudis,$situacio_laboral,
 	 	$prestacio,$telefon_mobil,$telefon_fix,$email,$admin=0,$imatge='';
 			
 		//METODOS
@@ -18,10 +18,11 @@
 	 	// New By Santi Puig	 	
 	 	public function guardar(){
 	 		$user_table = Config::get()->db_user_table;
-	 		$consulta = "INSERT INTO $user_table(dni,nom,cognom1,cognom2,data_naixement,estudis,sitaucio_laboral,
+	 		$consulta = "INSERT INTO $user_table(dni,nom,cognom1,cognom2,data_naixement,estudis,situacio_laboral,
 	 			prestacio,telefon_mobil,telefon_fix,email,admin,imatge)
-	 		VALUES ('$this->dni','$this->nom','$this->cognom1','$this->cognom2','$this->data_naixement',$this->estudis,$this->sitaucio_laboral
+	 		VALUES ('$this->dni','$this->nom','$this->cognom1','$this->cognom2','$this->data_naixement',$this->estudis,$this->situacio_laboral
 	 		   ,'$this->prestacio','$this->telefon_mobil','$this->telefon_fix','$this->email',0,'$this->imatge');";
+	 		//echo $consulta;
 	 		return Database::get()->query($consulta); 			
 	 	}
 		
@@ -47,14 +48,15 @@
 				cognom1='$this->cognom1',
 				cognom2='$this->cognom2',
 				data_naixement='$this->data_naixement',
-				estudis=$this->estudies,
-				sitaucio_laboral='$this->situacio_laboral,
+				estudis=$this->estudis,
+				situacio_laboral=$this->situacio_laboral,
 	 			prestacio=$this->prestacio,
 	 			telefon_mobil='$this->telefon_mobil',
 	 			telefon_fix='$this->telefon_fix',
 	 			email='$this->email',
 	 			imatge='$this->imatge'
 				WHERE id=$this->id;";
+			//echo $consulta;
 			return Database::get()->query($consulta);
 		}
 		

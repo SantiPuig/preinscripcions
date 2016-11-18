@@ -5,7 +5,7 @@
   
 
 
-  	 //test recuperar todos los PCs
-  	 $cs=CursModel::cursos();  	 
+  	 //test recuperar todos los cursos
+ 	 $cs=CursModel::cursos();  	 
   	 var_dump($cs);
 ?>
