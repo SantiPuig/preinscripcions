@@ -176,7 +176,7 @@ nav ul.menu>li:hover{
 	padding: 20px 0px 20px 0px;
 }
 
-#content p{git
+#content p{
 	text-align: justify;
 }
 
@@ -207,12 +207,67 @@ nav ul.menu>li:hover{
 	min-width: 140px;
 }
 
+
+
 #content form img.imagenactual{
 	width: 100px;
 	height: 110px;
 	margin: 10px;
 	float: right;
 }
+
+#filtre form input{
+	margin-top: 1px;
+	padding: 1px;
+	width:100px
+}
+#filtre form label{
+	display: inline-block;
+	margin.left:10px;
+	min-width: 80px;
+}
+#filtre form input[type=submit]{
+	padding-left:300px;
+	padding-right:300px;
+	align:center;
+	color:#FFFFFF;
+	background-color:#00ff00;
+}
+#filtre form fieldset{
+	display:inline-block;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-top: 1em;
+	padding_bottom: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	font-size:50%;
+
+}
+
+
+#filtre dates{
+	display:inline-block;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-top: 1em;
+	padding_bottom: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	width:200px;
+}
+
+#filtre filtres{
+	display:inline-block;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-top: 0.35em;
+	padding_bottom: 0.625em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	width:300px;
+}
+
 
 
 /* FOOTER */

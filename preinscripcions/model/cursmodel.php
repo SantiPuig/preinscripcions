@@ -76,8 +76,14 @@ class CursModel{
 		$consulta = "SELECT * FROM cursos ";
 		$where="";
 		if (is_array($filtros) || is_object($filtros))
-			foreach ($filtros as $campo=>$valor) 
+			foreach ($filtros as $campo=>$valor) {
+				if ($campo=='desded')
+					$where.=" and data_inici>='$valor'";
+				elseif ($campo=='finsd')
+					$where.=" and data_inici<='$valor'";
+				else
 					$where.=" and upper($campo) like upper('%$valor%')";
+			}
 		if ($where)
 			$consulta.=" where ".substr($where, 5);
 		/*else 
@@ -95,7 +101,17 @@ class CursModel{
 				
 		return $cursos;
 	}
+	public static function tipus(){
+		$consulta="SELECT DISTINCT tipus from cursos order by 1;";
+		
+		$resultado= Database::get()->query($consulta);
+		$ts=array();
+		while ($t=$resultado->fetch_array())
+			$ts[]=$t[0];
+		$resultado->free();
+		return $ts;
 	
+	}
 	
 	
 }

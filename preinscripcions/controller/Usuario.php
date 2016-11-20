@@ -29,7 +29,7 @@
 				$u->cognom1= $conexion->real_escape_string($_POST['cognom1']);
 				$u->cognom2= $conexion->real_escape_string($_POST['cognom2']);
 				$u->estudis= $conexion->real_escape_string($_POST['estudis']);
-				$u->sitaucio_laboral= $conexion->real_escape_string($_POST['itaucio_laboral']);
+				$u->sitaucio_laboral= $conexion->real_escape_string($_POST['sitaucio_laboral']);
 				$u->prestacio= $conexion->real_escape_string($_POST['prestacio']);
 				$u->telefon_mobil= $conexion->real_escape_string($_POST['telefon_mobil']);
 				$u->telefon_fix= $conexion->real_escape_string($_POST['telefon_fix']);
