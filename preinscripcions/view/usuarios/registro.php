@@ -23,10 +23,9 @@
 				<label>D.N.I:</label>
 				<input type="text" name="user" required="required" 
 					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracters (numeros, lletres o guió baix), començant per lletra"/><br/>
-				
-				<label>Password:</label>
-				<input type="password" name="password" required="required" 
-					pattern=".{4,16}" title="4 a 16 caracters"/><br/>
+					
+				<label>Data de Naixement:</label>
+				<input type="text" name="data de naixement" required="required"/><br/>
 				
 				<label>Nom:</label>
 				<input type="text" name="nom" required="required"/><br/>
@@ -36,6 +35,15 @@
 				
 				<label>Cognom2:</label>
 				<input type="text" name="cognom2" required="required"/><br/>
+				
+				<label>Estudis:</label>
+				<input type="text" name="estudis" required="required"/><br/>
+				
+				<label>Situació laboral:</label>
+				<input type="text" name="situació laboral" required="required"/><br/>
+				
+				<label>Prestació:</label>
+				<input type="text" name="prestació" required="required"/><br/>
 				
 				<label>Email:</label>
 				<input type="email" name="email" required="required"/><br/>
@@ -47,9 +55,11 @@
 				<input type="text" name="fix" required="required"/><br/>
 				
 				
-				<span>max <?php echo intval($max_image_size/1024);?>kb</span><br />
 				
-				<label></label>
+				
+				
+				
+		        <label></label>
 				<input type="submit" name="guardar" value="guardar"/><br/>
 			</form>
 		</section>
