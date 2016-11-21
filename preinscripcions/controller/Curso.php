@@ -6,46 +6,48 @@
    }
    
    public function listar() {
-   	//demanar al model que recuperi tots els cursos
+ 
    	$this->load('model/cursmodel.php');
-   	$cs=CursModel::cursos();
    	
-   	//passar els pcs a la vista
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
-   	$datos['cursos']=$cs;
    	
+
+   	// Si llego al form via GET, no me han metido nada en los filtros
+   	// si no hi ha filtres, es la primera vegada que accedeixen, i només caldra mostrar
+   	//formulari de filtre. Si no, caldrà buscar les dades i passar-li a la vista.
+   	
+    if ($_SERVER["REQUEST_METHOD"]=='GET')
+    	$filtros=array();
+   	else {
+
+   		//$filtros=array();
+   		//var_dump($_POST);
+   		$filtros=$_POST['filtros'];
+   		$conexion = Database::get();
+   		//$filtros['desded']=$_POST['desded'];
+   		$filtrar=array();
+        foreach ($filtros as $cl=>$v)
+        	if ($v)
+        		$filtrar[$cl]=$conexion->real_escape_string($v);
+   		$cs=CursModel::cursos_filtrats($filtrar);
+   		$datos['cursos']=$cs;
+   		
+   	}
+   		
+   	/*
+   	 *  La vista haurà de mirar si li arriven cursos.
+   	 *  Si l'arrai cursos no existeix, haurà de posar només formulari
+   	 *  Si l'arrai concursos existeix, pintarà capçalera llistat, i les dades que arribin
+   	 */
+    $datos['tipos']=CursModel::tipus();
+   	$datos['filtros']=$filtros;
    	
    	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
    	  $this->load_view('view/cursos/lista.php',$datos);
    	else 
    		$this->load_view('view/cursos/admin/lista_admin.php',$datos);
    	
-   }
-   /*
-    *  igual que la funcion de listar, pero acepta parámetros via post.
-    */
-   public function buscar() {
-   	//demanar al model que recuperi tots els cursos
-   	$this->load('model/cursmodel.php');
-   	$filtre=array();
-   	foreach ($_POST as $clau=>$valor)
-   		$filtre[$clau]=$valor;
-   	
-   	$cs=CursModel::cursos_filtrats($filtre);
-   
-   	//passar els pcs a la vista
-   	$datos=array();
-   	$datos['usuario']=Login::getUsuario();
-   	$datos['cursos']=$cs;
-   	$datos['filtre']=$filtre;
-   
-   
-   	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
-   		$this->load_view('view/cursos/lista.php',$datos);
-   		else
-   			$this->load_view('view/cursos/admin/lista_admin.php',$datos);
-   
    }
    	
    //metode per veure un curs en concret.
@@ -69,7 +71,10 @@
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
    	$datos['curs']=$c;
-   	$this->load_view('view/cursos/detalles.php',$datos);   	
+   	if (Login::isAdmin())
+   		$this->load_view('view/cursos/admin/detalles.php',$datos);
+   	else	
+   		$this->load_view('view/cursos/detalles.php',$datos);   	
    	
    }
    //OPERACIONS DE L'ADMINISTRADOR

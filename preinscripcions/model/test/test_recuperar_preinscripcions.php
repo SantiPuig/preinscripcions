@@ -7,9 +7,9 @@ require '../PreinscripcioModel.php';
 	
 
 	$filtre=array();
-	$filtre['id_usuari']=3;
-	$filtre['id_curs']=14;
-	
+/*	$filtre['id_usuari']=3;
+	$filtre['id_curs']=3;
+	*/
 
 	$prs=PreinscripcioModel::preinscripcions($filtre);
 	var_dump($prs);
