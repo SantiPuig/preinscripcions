@@ -62,7 +62,8 @@
 				//pone el menú del administrador
 				if($usuario && $usuario->admin){	?>
 				<ul class="menu">
-					<li><a href="index.php?controlador=pc&operacion=nuevo">Nuevo curso</a></li>
+					<li><a href="index.php?controlador=curso&operacion=nuevo">Nou curs</a></li>
+					<li><a href="index.php?controlador=Usuario&operacion=listar">Llistar Usuaris</a></li>
 				</ul>
 							
 				<?php }	?>
