@@ -24,16 +24,17 @@
 				//tomar los datos que vienen por POST
 				//real_escape_string evita las SQL Injections
 				$u->dni = $conexion->real_escape_string($_POST['user']);
-				$u->data_naixement = $conexion->real_escape_string($_POST['password']);
+				$u->data_naixement = $conexion->real_escape_string($_POST['data_naixement']);
 				$u->nom= $conexion->real_escape_string($_POST['nom']);
 				$u->cognom1= $conexion->real_escape_string($_POST['cognom1']);
 				$u->cognom2= $conexion->real_escape_string($_POST['cognom2']);
 				$u->estudis= $conexion->real_escape_string($_POST['estudis']);
-				$u->sitaucio_laboral= $conexion->real_escape_string($_POST['sitaucio_laboral']);
+				$u->situacio_laboral= $conexion->real_escape_string($_POST['situacio_laboral']);
 				$u->prestacio= $conexion->real_escape_string($_POST['prestacio']);
 				$u->telefon_mobil= $conexion->real_escape_string($_POST['telefon_mobil']);
 				$u->telefon_fix= $conexion->real_escape_string($_POST['telefon_fix']);
 				$u->email= $conexion->real_escape_string($_POST['email']);
+				/*
 				$u->imatge= Config::get()->default_user_image;
 				
 				//recuperar y guardar la imagen (solamente si ha sido enviada)
@@ -45,7 +46,7 @@
 					$upload = new Upload($_FILES['imatge'], $dir, $tam);
 					$u->imatge = $upload->upload_image();
 				}
-				
+				*/
 				/*
 				 * OLD
 				 *		

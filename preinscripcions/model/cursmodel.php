@@ -59,7 +59,13 @@ class CursModel{
 	
 	//Este método retorna todos los cursos de la base de datos
 	public static function cursos(){
-		$consulta = "SELECT * FROM cursos ;";
+		$consulta = "select *
+						from cursos
+						where data_inici is null
+						or data_inici=''
+						or data_inici>now()
+						order by data_inici;";
+	
 		$resultado = Database::get()->query($consulta);
 		
 		$cursos=Array();

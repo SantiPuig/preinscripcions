@@ -1,54 +1,19 @@
 <?php
-   class Curso extends Controller{
+   class Preinscripcio extends Controller{
    	public function index() { //default method
    		//echo('ahora voy a listar');
    		$this->listar();
    }
    
    public function listar() {
- 
+   	//demanar al model que recuperi tots els cursos
    	$this->load('model/cursmodel.php');
+   	$cs=CursModel::cursos();
    	
+   	//passar els pcs a la vista
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
-   	
-
-   	// Si llego al form via GET, no me han metido nada en los filtros
-   	// si no hi ha filtres, es la primera vegada que accedeixen, i només caldra mostrar
-   	//formulari de filtre. Si no, caldrà buscar les dades i passar-li a la vista.
-   	
-    if ($_SERVER["REQUEST_METHOD"]=='GET')
-    	$filtros=array();
-   	else {
-		$this->load('model/AreaformativaModel.php');
-   		$filtros=$_POST['filtros'];
-   		$conexion = Database::get();
-   		$filtrar=array();
-   		//para impedir las sqlinjection, tratamos una a una las cadenas que nos llega por post
-   		//y preservamos el array de filtros para devolverlo a la vista
-        foreach ($filtros as $cl=>$v)
-        	if ($v)
-        		$filtrar[$cl]=$conexion->real_escape_string($v); 
-        //Si no se indica ningún filtro, llamar al método que nos retorna todos los cursos
-        // que no tengan fecha de inicio, o cuya fecha de inicio sea futura.
-        if (count($filtrar))
-        	$cs=CursModel::cursos_filtrats($filtrar);
-        else 
-        	$cs=CursModel::cursos();
-        
-        $arees=AreaformativaModel::arees_formatives();
-        $datos['arees']=$arees;
-   		$datos['cursos']=$cs;
-   		
-   	}
-   		
-   	/*
-   	 *  La vista haurà de mirar si li arriven cursos.
-   	 *  Si l'arrai cursos no existeix, haurà de posar només formulari
-   	 *  Si l'arrai concursos existeix, pintarà capçalera llistat, i les dades que arribin
-   	 */
-    $datos['tipos']=CursModel::tipus(); //pasar los tipos de curso que hay, para el datalist de la vista
-   	$datos['filtros']=$filtros;  //volver a pasar los mismos filtros que llegaron del form.
+   	$datos['cursos']=$cs;
    	
    	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
    	  $this->load_view('view/cursos/lista.php',$datos);
@@ -78,10 +43,7 @@
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
    	$datos['curs']=$c;
-   	if (Login::isAdmin())
-   		$this->load_view('view/cursos/admin/detalles.php',$datos);
-   	else	
-   		$this->load_view('view/cursos/detalles.php',$datos);   	
+   	$this->load_view('view/cursos/detalles.php',$datos);   	
    	
    }
    //OPERACIONS DE L'ADMINISTRADOR
@@ -99,20 +61,21 @@
    		$this->load_view('view/cursos/admin/nuevo.php',$datos);
    	}else{
    		$this->load('model/cursmodel.php');
-   		$conexion = Database::get();
    		$c=new CursModel();
-   		   		
-   		$c->codi=$conexion->real_escape_string($_POST['codi']);
-   		$c->id_area=$_POST['id_area'];
-   		$c->nom=$conexion->real_escape_string($_POST['nom']);
-   		$c->descripcio=$conexion->real_escape_string($_POST['descripcio']);
-   		$c->hores=$_POST['hores'];
-   		$c->data_inici=$_POST['data_inici'];
-   		$c->data_fi=$_POST['data_fi'];
-   		$c->horari=$conexion->real_escape_string($_POST['horari']);
-   		$c->torn=$_POST['torn'];
-   		$c->tipus=$conexion->real_escape_string($_POST['tipus']);
-   		$c->requisits=$conexion->real_escape_string($_POST['requisits']);
+   		  
+   		$conexion = Database::get();
+   		
+   		$c->codi=$conexion->real_escape_string($POST['codi']);
+   		$c->id_area=$POST['id_area'];
+   		$c->nom=$conexion->real_escape_string($POST['nom']);
+   		$c->descripcio=$conexion->real_escape_string($POST['descripcio']);
+   		$c->hores=$conexion->real_escape_string($POST['hores']);
+   		$c->data_inici=$conexion->real_escape_string($POST['data_inici']);
+   		$c->data_fi=$conexion->real_escape_string($POST['data_fi']);
+   		$c->horari=$conexion->real_escape_string($POST['horari']);
+   		$c->torn=$POST['torn'];
+   		$c->tipus=$conexion->real_escape_string($POST['tipus']);
+   		$c->requisits=$conexion->real_escape_string($POST['requisits']);
    		
    		if (!$c->guardar())
    			throw new Exception("No s'ha pogut guardar");
@@ -147,25 +110,22 @@
    		$datos=array();
    		$datos['usuario']=Login::getUsuario();
    		$datos['curs']=$c;
-   		$this->load('model/AreaformativaModel.php');
-   		$arees=AreaformativaModel::arees_formatives();
-   		$datos['arees']=$arees;
-   		$this->load_view('view/cursos/admin/modificar.php',$datos);
+   		$this->load_view('view/pcs/admin/modificar.php',$datos);
    	  		
    	}else{ //si que m'envien dades
    		//recuperar les dades que m'arriven via POST
-   		$conexion = Database::get();
-   		$c->codi=$conexion->real_escape_string($_POST['codi']);
-   		$c->id_area=$_POST['id_area'];
-   		$c->nom=$conexion->real_escape_string($_POST['nom']);
-   		$c->descripcio=$conexion->real_escape_string($_POST['descripcio']);
-   		$c->hores=$_POST['hores'];
-   		$c->data_inici=$_POST['data_inici'];
-   		$c->data_fi=$_POST['data_fi'];
-   		$c->horari=$conexion->real_escape_string($_POST['horari']);
-   		$c->torn=$_POST['torn'];
-   		$c->tipus=$conexion->real_escape_string($_POST['tipus']);
-   		$c->requisits=$conexion->real_escape_string($_POST['requisits']);
+   		
+   		$c->codi=$conexion->real_escape_string($POST['codi']);
+   		$c->id_area=$POST['id_area'];
+   		$c->nom=$conexion->real_escape_string($POST['nom']);
+   		$c->descripcio=$conexion->real_escape_string($POST['descripcio']);
+   		$c->hores=$POST['hores'];
+   		$c->data_inici=$conexion->real_escape_string($POST['data_inici']);
+   		$c->data_fi=$conexion->real_escape_string($POST['data_fi']);
+   		$c->horari=$conexion->real_escape_string($POST['horari']);
+   		$c->torn=$POST['torn'];
+   		$c->tipus=$POST['tipus'];
+   		$c->requisits=$conexion->real_escape_string($POST['requisits']);
    		
    		//actualitzar la BDD
    		if(!$c->actualizar())
@@ -200,7 +160,7 @@
    			$this->load('model/PreinscripcioModel.php');
    			$filtre=array();
    			$filtre['id_curs']=$id;
-   			$inscrits=count(PreinscripcioModel::preinscripcions($filtre));
+   			$inscrits=count(PreinscripcioModel::preinscripcions(filtre));
    			
    			//mostrar la vista de confirmació   			
    			$datos=array();
@@ -208,20 +168,18 @@
    			$datos['curs']=$c;
    			$datos['inscrits']=$inscrits;
    			
-   			$this->load_view('view/cursos/admin/borrar.php',$datos);
+   			$this->load_view('view/pcs/admin/borrar.php',$datos);
    		}else{ //si ja m'estan confirmant la baixa
-   			// mirar si el DNI que arriba via POST coincideix amb el de l'administrador
-   			$usr=Login::getUsuario();
-   			if (strtoupper($_POST['DNI'])!=strtoupper($usr->dni))
-   				throw new exception("El DNI no coincideix amb el de l'administrador. Operació cancelada");
    			// esborrar el curs de la BDD
    			if(!$c->borrar())
    				throw new Exception('Error al intentar donar de baixa el curs');
    			//carregar la vista d'exit
-   			$datos = array();
-   			$datos['usuario'] = Login::getUsuario();
-   			$datos['mensaje'] = 'Curs esborrat correctament';
-   			$this->load_view('view/exito.php', $datos);
+   			//$datos[''] ...
+   			
+   			//tornar a carregar el llistat de PCs
+   			//$datos=array();
+   			//$datos['usuario']=Login::getUsuario();
+   			$this->listar();   			
    			
    		}
    	}

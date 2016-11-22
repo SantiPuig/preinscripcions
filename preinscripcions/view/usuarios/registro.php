@@ -25,7 +25,7 @@
 					pattern="^[a-zA-Z]\w{2,9}" title="3 a 10 caracters (numeros, lletres o guió baix), començant per lletra"/><br/>
 					
 				<label>Data de Naixement:</label>
-				<input type="text" name="data de naixement" required="required"/><br/>
+				<input type="text" name="data_naixement" required="required"/><br/>
 				
 				<label>Nom:</label>
 				<input type="text" name="nom" required="required"/><br/>
@@ -40,19 +40,19 @@
 				<input type="text" name="estudis" required="required"/><br/>
 				
 				<label>Situació laboral:</label>
-				<input type="text" name="situació laboral" required="required"/><br/>
+				<input type="text" name="situacio_laboral" required="required"/><br/>
 				
 				<label>Prestació:</label>
-				<input type="text" name="prestació" required="required"/><br/>
+				<input type="text" name="prestacio" required="required"/><br/>
 				
 				<label>Email:</label>
 				<input type="email" name="email" required="required"/><br/>
 				
 				<label>Mobil:</label>
-				<input type="text" name="mobil" required="required"/><br/>
+				<input type="text" name="telefon_mobil" required="required"/><br/>
 				
 				<label>Fix:</label>
-				<input type="text" name="fix" required="required"/><br/>
+				<input type="text" name="telefon_fix" required="required"/><br/>
 				
 				
 				
