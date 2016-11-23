@@ -53,7 +53,7 @@ class PreinscripcioModel{
      */
     public static function preinscripcions_alumne($dni=""){
     	
-    	if(!alumne)    		
+    	if(!$dni)    		
     		return null;
     	else {
     		$consulta="select * from v_alumnes_preinscrits where dni='$dni';";
@@ -62,7 +62,7 @@ class PreinscripcioModel{
     		while ($pre=$resultado->fetch_object())
     			$preins[]=$pre;
     		$resultado->free();
-    		return $usuaris;
+    		return $preins;
    				
     	}
     	

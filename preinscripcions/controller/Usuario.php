@@ -95,7 +95,12 @@
 					$datos['usuario']= UsuarioModel::getUsuario($_GET['parametro']);
 
 				//var_dump($datos);	
-				$datos['max_image_size'] = Config::get()->user_image_max_size;
+				//$datos['max_image_size'] = Config::get()->user_image_max_size;
+				
+				$dni=$datos['usuario']->dni;
+				$this->load('model/PreinscripcioModel.php');
+				$datos['inscripcions']=PreinscripcioModel::preinscripcions_alumne($dni);
+				//var_dump($datos);
 				$this->load_view('view/usuarios/modificacion.php', $datos);
 					
 				//si llegan los datos por POST
