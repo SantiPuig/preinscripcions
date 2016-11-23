@@ -64,8 +64,7 @@
 							
 						?>							
 						</select>
-						<?php  /*<input type="text" name="filtros[id_area]" id="id_area"
-							value="<?php echo empty($filtros['id_area'])?'':$filtros['id_area'];?>" />	*/?>				
+						<br>				
 					</fieldset>
 					<input type="submit" value="cercar" id="cercar" autofocus/>
 				</form>

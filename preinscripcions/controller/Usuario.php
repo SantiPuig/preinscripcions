@@ -23,7 +23,7 @@
 				
 				//tomar los datos que vienen por POST
 				//real_escape_string evita las SQL Injections
-				$u->dni = $conexion->real_escape_string($_POST['user']);
+				$u->dni = $conexion->real_escape_string($_POST['dni']);
 				$u->data_naixement = $conexion->real_escape_string($_POST['data_naixement']);
 				$u->nom= $conexion->real_escape_string($_POST['nom']);
 				$u->cognom1= $conexion->real_escape_string($_POST['cognom1']);
@@ -88,29 +88,41 @@
 				
 				//mostramos la vista del formulario
 				$datos = array();
-				$datos['usuario'] = Login::getUsuario();
+				//var_dump($_GET);
+				if (empty($_GET['parametro']) || !Login::isAdmin())
+					$datos['usuario'] = Login::getUsuario();
+				else 
+					$datos['usuario']= UsuarioModel::getUsuario($_GET['parametro']);
+
+				//var_dump($datos);	
 				$datos['max_image_size'] = Config::get()->user_image_max_size;
 				$this->load_view('view/usuarios/modificacion.php', $datos);
 					
 				//si llegan los datos por POST
 			}else{
 				//recuperar los datos actuales del usuario
-				$u = Login::getUsuario();
+				$u = UsuarioModel::getUsuario($_POST['id']);
 				$conexion = Database::get();
 				
 				//comprueba que el usuario se valide correctamente
-				$p = MD5($conexion->real_escape_string($_POST['password']));
-				if($u->password != $p)
-					throw new Exception('El password no coincide, no se puede procesar la modificación');
 								
-				//recupera el nuevo password (si se desea cambiar)
-				if(!empty($_POST['newpassword']))
-					$u->password = MD5($conexion->real_escape_string($_POST['newpassword']));
-				
-				//recupera el nuevo nombre y el nuevo email
-				$u->nombre = $conexion->real_escape_string($_POST['nombre']);
+				//recupera los nuevos datos del formulario
+				$u->nom = $conexion->real_escape_string($_POST['nom']);
+				$u->cognom1 = $conexion->real_escape_string($_POST['cognom1']);
+				$u->cognom2 = $conexion->real_escape_string($_POST['cognom2']);
+				$u->data_naixement = $_POST['data_naixement'];
+				$u->dni = $conexion->real_escape_string($_POST['dni']);
 				$u->email = $conexion->real_escape_string($_POST['email']);
-						
+				$u->estudis = $conexion->real_escape_string($_POST['estudis']);
+				$u->prestacio = $conexion->real_escape_string($_POST['prestacio']);
+				$u->situacio_laboral = $conexion->real_escape_string($_POST['situacio_laboral']);		
+				$u->telefon_fix = $conexion->real_escape_string($_POST['telefon_fix']);
+				
+				$u->telefon_mobil = $conexion->real_escape_string($_POST['telefon_mobil']);
+					
+				/*
+				 * OLD  - No hacemos tratamiento de imagenes
+				 *
 				//TRATAMIENTO DE LA NUEVA IMAGEN DE PERFIL (si se indicó)
 				if($_FILES['imagen']['error']!=4){
 					//el directorio y el tam_maximo se configuran en el fichero config.php
@@ -126,21 +138,14 @@
 					
 					//sube la nueva imagen
 					$u->imagen = $upload->upload_image();
-				}
+				} */
 				
 				//modificar el usuario en BDD
+				//var_dump($u);
 				if(!$u->actualizar())
 					throw new Exception('No se pudo modificar');
 		
-				//borrado de la imagen antigua (si se cambió)
-				//hay que evitar que se borre la imagen por defecto
-				if(!empty($old_img) && $old_img!= Config::get()->default_user_image)
-					@unlink($old_img);
-						
-				//hace de nuevo "login" para actualizar los datos del usuario
-				//desde la BDD a la variable de sesión.
-				Login::log_in($u->user, $u->password);
-					
+							
 				//mostrar la vista de éxito
 				$datos = array();
 				$datos['usuario'] = Login::getUsuario();
@@ -152,10 +157,13 @@
 		
 		//PROCEDIMIENTO PARA DAR DE BAJA UN USUARIO
 		//solicita confirmación
-		public function baja(){		
+		public function baja($p){		
 			//recuperar usuario
-			$u = Login::getUsuario();
-			
+			if (Login::isAdmin()) //si es el administrador
+				$u=UsuarioModel::getUsuario($p); //traer el usuario que llega por parametro
+			else 
+				$u = Login::getUsuario(); //se traera el usuario que este logeado
+			throw new Exception("Intentas dar de baja al usuario con ID=$p");
 			//asegurarse que el usuario está identificado
 			if(!$u) throw new Exception('Debes estar identificado para poder darte de baja');
 			
@@ -176,13 +184,15 @@
 				//de borrar el usuario actual en la BDD
 				if(!$u->borrar())
 					throw new Exception('No se pudo dar de baja');
-						
+					
+					/*
 				//borra la imagen (solamente en caso que no sea imagen por defecto)
 				if($u->imagen!=Config::get()->default_user_image)
-					@unlink($u->imagen); 
+					@unlink($u->imagen);  */
 			
-				//cierra la sesion
-				Login::log_out();
+				//cierra la sesion si no es el admin				
+				if (!Login::isAdmin())
+					Login::log_out();
 					
 				//mostrar la vista de éxito
 				$datos = array();
@@ -190,6 +200,19 @@
 				$datos['mensaje'] = 'Eliminado OK';
 				$this->load_view('view/exito.php', $datos);
 			}
+		}
+		public function listar(){
+			if (!Login::isAdmin())
+				throw new Exception("Opció restringida per a l'administrador");
+			else {
+				$alumnes=UsuarioModel::getUsuarios();
+				$datos=array();
+				$datos['usuario'] = Login::getUsuario();
+				$datos['alumnes']=$alumnes;
+				$this->load_view('view/usuarios/admin/listado.php',$datos);
+				
+			}
+				
 		}
 		
 	}

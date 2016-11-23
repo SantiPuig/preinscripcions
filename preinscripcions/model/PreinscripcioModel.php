@@ -48,5 +48,24 @@ class PreinscripcioModel{
   		$resultado->free();
     	return $preins;
     }	
+    /*
+     *  Obté totes les preinscripcions de l'alumne amb un DNI determinat
+     */
+    public static function preinscripcions_alumne($dni=""){
+    	
+    	if(!alumne)    		
+    		return null;
+    	else {
+    		$consulta="select * from v_alumnes_preinscrits where dni='$dni';";
+    		$resultado=Database::get()->query($consulta);
+    		$preins=array();
+    		while ($pre=$resultado->fetch_object())
+    			$preins[]=$pre;
+    		$resultado->free();
+    		return $usuaris;
+   				
+    	}
+    	
+    }
 }
 ?>

@@ -107,7 +107,7 @@
 		//de la BDD (o NULL si no existe), a partir de un nombre de usuario
 		public static function getUsuario($u){
 			$user_table = Config::get()->db_user_table;
-			$consulta = "SELECT * FROM $user_table WHERE DNI='$u';";
+			$consulta = "SELECT * FROM $user_table WHERE id='$u';";
 			$resultado = Database::get()->query($consulta);
 			
 			$us = $resultado->fetch_object('UsuarioModel');
@@ -115,5 +115,52 @@
 			
 			return $us;
 		}	
+		// retorna el usuario a partir de su DNI
+		public static function getUsuario_ByDni($u){
+			$user_table = Config::get()->db_user_table;
+			$consulta = "SELECT * FROM $user_table WHERE dni='$u';";
+			$resultado = Database::get()->query($consulta);
+				
+			$us = $resultado->fetch_object('UsuarioModel');
+			$resultado->free();
+				
+			return $us;
+		}
+		// obtiene un array con todos los usuarios
+		public static function getUsuarios(){
+			/*
+			 * Retorna un array bidimensional con las siguientes columnas:
+			 *  0->ID Alumno
+			 *  1->Nombre y apellidos
+			 *  2->Edat
+			 *  3->email
+			 *  4->prestacion(SI/no)
+			 *  5->Situacion laboral (int)
+			 *  6->Telefono fijo
+			 *  7->Telefono mobil
+			 *  8->Numero de preinscripciones a cursos
+			 */
+			$user_table = Config::get()->db_user_table;
+			$consulta = "select u.id,concat(nom,' ', cognom1,' ',cognom2) as nom,
+					    year(curdate())-year(u.data_naixement)+if(date_format(curdate(),'%m-%d')>date_format(u.data_naixement,'%m-%d'),0,1) as edat,
+						u.email,
+						if(prestacio,'','Si') prestacio,
+						situacio_laboral,telefon_fix,telefon_mobil,
+						count(*) as inscripcions						
+					from usuaris u
+					  left join preinscripcions p on p.id_usuari=u.id
+					group by u.id,concat(nom,' ', cognom1,' ',cognom2) ,
+					   	year(curdate())-year(u.data_naixement)+if(date_format(curdate(),'%m-%d')>date_format(u.data_naixement,'%m-%d'),0,1),
+						u.email,prestacio,situacio_laboral,	telefon_fix,telefon_mobil;";
+			
+			$resultado = Database::get()->query($consulta);
+			
+			$usuaris=array();
+			
+			while($us = $resultado->fetch_object())
+				$usuaris[]=$us;
+			$resultado->free();				
+			return $usuaris;
+		}
 	}
 ?>

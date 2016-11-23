@@ -23,7 +23,8 @@
 			if ($inscrits)
 			    echo "<p>En aquest curs hi ha $inscrits alumnes preinscrits";
 			?>
-			<p>Segur que vols esborrar el curs?
+			<p>Segur que vols esborrar el curs:
+			<?php echo " $curs->codi - $curs->nom?";?>
 			<p>Si us plau, confirma la teva solicitud de baixa introduint el DNI associat al teu compte.</p>
 		
 			<form method="post" autocomplete="off">

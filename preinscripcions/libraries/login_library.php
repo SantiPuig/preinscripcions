@@ -40,7 +40,7 @@
 				throw new Exception('Error en la identificacion');
 		
 			//recupera el usuario y lo guarda en la variable de sesión
-			$_SESSION['user'] = serialize(UsuarioModel::getUsuario($u));					
+			$_SESSION['user'] = serialize(UsuarioModel::getUsuario_ByDni($u));					
 		}
 		
 		//método que realiza la operación de logout

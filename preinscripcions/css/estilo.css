@@ -45,6 +45,18 @@ RESET DE ESTILO Y REGLAS GENERALES
 	flex:1;
 	font-size:0.5em;
 }
+.flexgran{
+	flex:3;
+	font-size:0.9	0em;
+}
+
+.llistat{
+	font-weight: bold;
+}
+
+.centrado{
+	text-align: center;
+}
 
 h1, h2, h3{
 	margin: 10px 0px 10px 0px;
@@ -219,16 +231,16 @@ nav ul.menu>li:hover{
 #filtre form input{
 	margin-top: 1px;
 	padding: 1px;
-	width:100px
+	width:80px
 }
 #filtre form label{
 	display: inline-block;
 	margin.left:10px;
-	min-width: 80px;
+	min-width: 140px;
 }
 #filtre form input[type=submit]{
-	padding-left:300px;
-	padding-right:300px;
+	padding-left:350px;
+	padding-right:390px;
 	align:center;
 	color:#FFFFFF;
 	background-color:#00ff00;
@@ -241,7 +253,6 @@ nav ul.menu>li:hover{
 	padding_bottom: 1em;
 	padding-left: 1em;
 	padding-right: 1em;
-	font-size:50%;
 
 }
 

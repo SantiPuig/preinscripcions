@@ -5,6 +5,8 @@
    		$this->listar();
    }
    
+   
+   
    public function listar() {
    	//demanar al model que recuperi tots els cursos
    	$this->load('model/cursmodel.php');
@@ -48,45 +50,36 @@
    }
    //OPERACIONS DE L'ADMINISTRADOR
    //Donar d'alta un nou curs
-   public function nuevo(){
+   public function nuevo($idcurs){
    	//Cal comprovar si l'usuari és Admin
-   	if(!Login::isAdmin())
-   		throw new Exception("Alta de Cursos restringida només per a l'administrador");
+   	if(Login::isAdmin())
+   		throw new Exception("L'administrador no es pot inscriure als cursos");
    	
-   		// comprovar si no m'arriven les dades del nou curs
-   	if (empty($_POST['guardar'])){
-   		//si no envien dades, cal mostrar formulari perque les omplin
-   		$datos=array();
-   		$datos['usuario']=login::getUsuario();
-   		$this->load_view('view/cursos/admin/nuevo.php',$datos);
-   	}else{
-   		$this->load('model/cursmodel.php');
-   		$c=new CursModel();
-   		  
-   		$conexion = Database::get();
-   		
-   		$c->codi=$conexion->real_escape_string($POST['codi']);
-   		$c->id_area=$POST['id_area'];
-   		$c->nom=$conexion->real_escape_string($POST['nom']);
-   		$c->descripcio=$conexion->real_escape_string($POST['descripcio']);
-   		$c->hores=$conexion->real_escape_string($POST['hores']);
-   		$c->data_inici=$conexion->real_escape_string($POST['data_inici']);
-   		$c->data_fi=$conexion->real_escape_string($POST['data_fi']);
-   		$c->horari=$conexion->real_escape_string($POST['horari']);
-   		$c->torn=$POST['torn'];
-   		$c->tipus=$conexion->real_escape_string($POST['tipus']);
-   		$c->requisits=$conexion->real_escape_string($POST['requisits']);
-   		
-   		if (!$c->guardar())
-   			throw new Exception("No s'ha pogut guardar");
+   	if(!Login::getUsuario())
+   		throw new Exception("Opció només per a usuaris registrats");
+   	if (!$idcurs)
+   		throw new Exception("No s'ha indicat cap curs");
+   	
+   	$this->load('model/cursmodel.php');
+   	$c=CursModel::getCurs($idcurs);
+   	if(!$c)
+   		throw new Exception("Curs inexistent");   		
+   	
+   	$u=Login::getUsuario();
+   	$this->load('model/PreinscripcioModel.php');
+   	$pre=new PreinscripcioModel();   	
+   	$pre->id_curs=$idcurs;
+   	$pre->id_usuari=$u->id;
+   	if(!$pre->guardar())
+   		throw new Exception("Ja estaves inscrit al curs!");
    		
    		// mostrar la vista de èxit
-   		$datos=array();
-   		$datos['usuario']=login::getUsuario();
-   		$datos['mensaje']="Curs $c->codi - $c->nom desat correctament";
-   		$this->load_view('view/exito.php',$datos);
+   	$datos=array();
+
+   	$datos['usuario']=login::getUsuario();
+   	$datos['mensaje']="T'has inscrit al curs $c->codi - $c->nom correctament";
+   	$this->load_view('view/exito.php',$datos);
    		
-   	} 	
    }
   /*
    * Opció de modificar un curs (només administrador)

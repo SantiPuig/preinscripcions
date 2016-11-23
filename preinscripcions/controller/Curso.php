@@ -8,6 +8,7 @@
    public function listar() {
  
    	$this->load('model/cursmodel.php');
+   	$this->load('model/AreaformativaModel.php');
    	
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
@@ -20,7 +21,7 @@
     if ($_SERVER["REQUEST_METHOD"]=='GET')
     	$filtros=array();
    	else {
-		$this->load('model/AreaformativaModel.php');
+	
    		$filtros=$_POST['filtros'];
    		$conexion = Database::get();
    		$filtrar=array();
@@ -36,11 +37,12 @@
         else 
         	$cs=CursModel::cursos();
         
-        $arees=AreaformativaModel::arees_formatives();
-        $datos['arees']=$arees;
+  
    		$datos['cursos']=$cs;
    		
    	}
+   	
+   	$datos['arees']=AreaformativaModel::arees_formatives();
    		
    	/*
    	 *  La vista haurà de mirar si li arriven cursos.
@@ -68,6 +70,7 @@
    	
    		//demanar al model que ens passi el curs en questió
    	$this->load('model/cursmodel.php');
+   	$this->load('model/AreaformativaModel.php');
    	$c=CursModel::getCurs($id);
    	
    	if (!$c)
@@ -77,11 +80,13 @@
    	//passar el pc a la vista
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
-   	$datos['curs']=$c;
+   	$datos['curso']=$c;
+   	$datos['areaformativa']=AreaformativaModel::getAreaFormativa($c->id_area)->nom;
+   	
    	if (Login::isAdmin())
-   		$this->load_view('view/cursos/admin/detalles.php',$datos);
+   		$this->load_view('view/cursos/admin/detalles_curso_admin.php',$datos);
    	else	
-   		$this->load_view('view/cursos/detalles.php',$datos);   	
+   		$this->load_view('view/cursos/detalles_curso.php',$datos);   	
    	
    }
    //OPERACIONS DE L'ADMINISTRADOR
@@ -94,7 +99,10 @@
    		// comprovar si no m'arriven les dades del nou curs
    	if (empty($_POST['guardar'])){
    		//si no envien dades, cal mostrar formulari perque les omplin
+   		$this->load('model/AreaformativaModel.php');
+   		
    		$datos=array();
+   		$datos['arees']=AreaformativaModel::arees_formatives();
    		$datos['usuario']=login::getUsuario();
    		$this->load_view('view/cursos/admin/nuevo.php',$datos);
    	}else{
@@ -189,12 +197,14 @@
    			throw new Exception ("Opció restringida només per a l'administrador");
    		// recuperar curs de la BD
    		$this->load('model/cursmodel.php');
+   		echo "curs $id";
    		$c=CursModel::getCurs($id);
    		
    		//comprovar que el curs s'ha carregat correctament
    		if (empty($c))
    			throw new Exception("No es troba el curs");
    		//si encara no han confirmat esborrar
+   		//var_dump($_POST);
    		if(empty($_POST['borrar'])){
    			//mira si hi ha preinscripcions al curs.
    			$this->load('model/PreinscripcioModel.php');
