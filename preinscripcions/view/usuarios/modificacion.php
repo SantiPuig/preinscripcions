@@ -103,17 +103,44 @@
 				?>
 				</select>
 				<br>
-				<input type="submit" name="modificar" value="modificar"/><br>
+				<input type="submit" name="modificar" value="modificar"/>
+				<a href="index.php?controlador=Usuario&operacion=baja&parametro=<?php echo $usuario->id;?>"><img class='boton' src='images/botones/delete.png' >			  		
+				</a>
+			
 			</form>
-			<a class="derecha" href="index.php?controlador=Usuario&operacion=baja&parametro=<?php echo $usuario->id;?>">
-			<img class='boton' src='images/botones/delete.png' >
-			  		
-			</a>
 			
 				
 		</section>
 		<section id="llistat">
-		
+		<?php
+		   if (!empty($inscripcions)){		   	  	   	
+		?>
+			<table>
+			<tr>			  
+			 	<th>codi</th>	
+				<th>nom</th>				
+				<th>data inici</th>				
+				<th>data fi</th>				
+				<th>horari</th>				
+				<th>torn</th>			
+				<th>inscrits</th>				
+			 </tr>
+		<?php
+			
+			foreach ($inscripcions as $i){
+				echo "<tr>";
+				echo "<td>$i->codi</td>";
+				echo "<td>$i->nom</td>";
+				echo "<td>$i->data_inici</td>";
+				echo "<td>$i->data_fi</td>";
+				echo "<td>$i->horari</td>";
+				echo "<td>$i->torn</td>";
+				echo "<td>$i->inscrits</td>";
+				echo "</tr>";				 
+			}
+			echo "</table>";
+		 }
+		?>	 
 		</section>
 		
 		<?php Template::footer();?>

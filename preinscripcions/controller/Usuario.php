@@ -97,7 +97,7 @@
 				//var_dump($datos);	
 				//$datos['max_image_size'] = Config::get()->user_image_max_size;
 				
-				$dni=$datos['usuario']->dni;
+				$dni=$datos['usuario']->id;
 				$this->load('model/PreinscripcioModel.php');
 				$datos['inscripcions']=PreinscripcioModel::preinscripcions_alumne($dni);
 				//var_dump($datos);
