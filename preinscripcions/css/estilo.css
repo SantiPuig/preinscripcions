@@ -98,10 +98,12 @@ body{
 
 /* HEADER */
 header{
-	padding: 20px;
+	padding: 30px;
 	background-color: #eef;
-	color: white;
+	color: yellow;
 	text-shadow: 1px 1px 3px #99a;
+	background-image: url(../images/CEFO.jpg);
+	background-size: 100% 100%;
 }
 
 header{

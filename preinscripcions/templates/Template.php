@@ -4,11 +4,13 @@
 		//PONE EL HEADER DE LA PAGINA
 		public static function header(){	?>
 			<header>
+				<!-- 
 				<figure>
 					<a href="index.php">
 						<img alt="cefo" src="images/CEFO.jpg" />
 					</a>
 				</figure>
+				 -->
 				<hgroup>
 					<h1>Cursos per aturats</h1>
 					<h2>Cursos de Formació professional</h2>
