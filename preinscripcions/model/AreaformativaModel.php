@@ -38,7 +38,16 @@ class AreaformativaModel{
 			
 		return $ar;
 	}
-	
+	/*
+	 *  Donat un nom d'area, busca si hi ha algun altre 
+	 */
+	public static function buscaId($nom=''){
+		$consulta="select id from arees_formatives where nom='$nom' limit 1;";
+		$resultado = Database::get()->query($consulta);			
+		$res = $resultado->fetch_object();
+		$resultado->free();
+		return $res;
+	}
 	//Este método retorna totes les arees formatives
 	public static function arees_formatives(){
 		$consulta = "select * from arees_formatives order by Id;";

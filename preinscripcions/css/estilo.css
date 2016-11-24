@@ -235,7 +235,12 @@ nav ul.menu>li:hover{
 #content form input{
 	margin-top: 5px;
 	padding: 4px;
+	
 }
+#content form input[name=nom]{
+	width: 400px;
+}
+
 #content form label{
 	display: inline-block;
 	min-width: 140px;
