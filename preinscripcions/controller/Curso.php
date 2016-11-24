@@ -18,7 +18,7 @@
    	// si no hi ha filtres, es la primera vegada que accedeixen, i només caldra mostrar
    	//formulari de filtre. Si no, caldrà buscar les dades i passar-li a la vista.
    	
-    if ($_SERVER["REQUEST_METHOD"]=='GET')
+    if ($_SERVER["REQUEST_METHOD"]=='GET' || empty($_POST['filtros']))
     	$filtros=array();
    	else {
 	
@@ -83,9 +83,11 @@
    	$datos['curso']=$c;
    	$datos['areaformativa']=AreaformativaModel::getAreaFormativa($c->id_area)->nom;
    	
-   	if (Login::isAdmin())
+   	if (Login::isAdmin()){
+   		$this->load('model/PreinscripcioModel.php');
+   		$datos['alumnes']=PreinscripcioModel::alumnes_preinscrits($id);
    		$this->load_view('view/cursos/admin/detalles_curso_admin.php',$datos);
-   	else	
+   	} else	
    		$this->load_view('view/cursos/detalles_curso.php',$datos);   	
    	
    }

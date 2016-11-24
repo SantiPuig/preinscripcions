@@ -21,6 +21,26 @@ class PreinscripcioModel{
 		//echo $consulta;
 		return Database::get()->query($consulta);
 	}
+	/*
+	 *  Retorna la relació d'alumnes que s'han preinscrit a un curs
+	 */
+	public static function alumnes_preinscrits($idcurs){
+		$consulta="SELECT u.id,v.dni,v.nom,v.telefon_mobil,v.telefon_fix,v.email,v.data,v.id_curs,count(*) inscripcions
+			FROM v_alumnes_preinscrits v
+				inner join usuaris u on u.dni=v.dni
+					left join preinscripcions p on p.id_usuari=u.id
+			where v.id_curs='$idcurs'	
+			group by u.id,v.dni,v.nom,v.telefon_mobil,v.telefon_fix,v.email,v.data,v.id_curs;";
+		
+		$resultado=Database::get()->query($consulta);
+		$als=array();
+		while ($a=$resultado->fetch_object())
+			$als[]=$a;
+		$resultado->free();
+		return $als;
+	}
+	
+	
 
 	/*
 	 * Llistat de preinscripcions. Retorna les preinscripcions filtrant per
@@ -56,12 +76,12 @@ class PreinscripcioModel{
     	if(!$alumne)    		
     		return null;
     	else {
-    		$consulta="SELECT c.codi,c.nom,c.data_inici,c.data_fi,c.horari, 
+    		$consulta="SELECT p.id_curs,c.codi,c.nom,c.data_inici,c.data_fi,c.horari, 
     					case c.torn when 'T' then 'TARDA' when 'M' Then 'MATI' when 'C' then 'COMPLERT' END torn,count(*) inscrits
 				 		FROM cursos c INNER JOIN preinscripcions p on p.id_curs=c.id 
    							left join preinscripcions p2 on p.id_curs=p2.id_curs
    						where p.id_usuari=$alumne
-						group by c.codi,c.nom,c.data_inici,c.data_fi,c.horari, 
+						group by p.id_curs,c.codi,c.nom,c.data_inici,c.data_fi,c.horari, 
 							case c.torn when 'T' then 'TARDA' when 'M' Then 'MATI' when 'C' then 'COMPLERT' END 
     					order by data_inici;";
     		

@@ -38,7 +38,7 @@
 			if (!$curso->torn)
 				$torn="Sense definir";
 			else 
-				$torn=$torns[$curso->torn];			
+				$torn=$torns[strtoupper($curso->torn)];			
 		
 			echo "<b>torn:</b>$torn<br>";
 			echo "<b>tipus:</b>$curso->tipus<br>";

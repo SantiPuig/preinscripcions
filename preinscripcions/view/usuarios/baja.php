@@ -25,7 +25,7 @@
 
 				
 				<label>DNI:</label>
-				<input type="text" name="DNI" required="required"/><br/>
+				<input type="text" name="dni" required="required"/><br/>
 				
 				<label></label>
 				<input type="submit" name="confirmar" value="Confirmar"/><br/>
