@@ -98,12 +98,13 @@ body{
 
 /* HEADER */
 header{
-	padding: 30px;
+	padding: 0px;
 	background-color: #eef;
-	color: yellow;
-	text-shadow: 1px 1px 3px #99a;
+	color: white;
+	text-shadow: 2px 2px 3px #99a;
 	background-image: url(../images/soc.png);
 	background-size: 100% 100%;
+	padding-left:10px;
 }
 
 header{
@@ -111,11 +112,17 @@ header{
 }
 
 header h1{
-	font-size: 1em;	
+	font-size: 0.9em;
+	padding-bottom:40px;	
+}
+
+header h2{
+	font-size: 0.9em;
+	padding-bottom:0px;	
 }
 
 header figure{
-	flex: 1;
+	flex: 2;
 }
 
 header figure img{
