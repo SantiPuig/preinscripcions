@@ -34,7 +34,7 @@
 			   	  echo "<td><a href='index.php?controlador=areaformativa&operacion=modificar&parametro=$a->id'>";
 			 	  echo "<img class='boton' src='images/botones/modify.png'></a>" ; 
 			  	  echo "<a href='index.php?controlador=areaformativa&operacion=borrar&parametro=$a->id'> ";
-  		  		  echo "<img class='boton' src='images/botones/delete.png'> </a></tr>";
+  		  		  echo "<img class='boton' src='images/botones/delete.png'> </a></td></tr>";
 			   }
 			?>
 						   

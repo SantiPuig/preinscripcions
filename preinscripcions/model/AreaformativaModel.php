@@ -64,4 +64,32 @@ class AreaformativaModel{
 	}	
 	
 }
+class SusbcripcioModel{
+	public $id_usuari,$id_area,$data;
+	public function guardar(){
+	
+		$consulta = "INSERT INTO subscripcions (id_usuari,id_area) VALUES ($this->id_usuari,$this->id_area);";
+		//echo $consulta;
+		return Database::get()->query($consulta);
+	}
+	public function borrar(){
+	
+		$consulta = "DELETE FROM subscripcions WHERE id_usuari=$this->id_usuari and id_area=$this->id_area;";
+		return Database::get()->query($consulta);
+	}
+	public static function suscripcions_alumne($id_alumne){
+		$consulta="Select a.nom,s.id_area,s.data 
+					FROM subscripcions s 
+						inner join arees_formatives a on a.id=s.id_area
+					where s.id_usuari=$id_alumne";
+		$subs=array();
+		$resultado = Database::get()->query($consulta);
+		while ($s = $resultado->fetch_object())
+			$subs[]=$s;
+		$resultado->free();
+				
+		return $subs;			
+	}
+	
+}
 ?>

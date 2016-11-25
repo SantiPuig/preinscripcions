@@ -16,63 +16,29 @@
    	  	return null;
    }
    public function listar() {
-   	if (!Login::isAdmin())
+    /*	if (!Login::isAdmin())
    		Throw new Exception("Aquesta operació només està disponible per la l'administrador<br>
-   				<p><a href='index.php?controlador=curso'>Sortir</a>");
- 
-   	
-   	$this->load('model/cursmodel.php');
-   	$this->load('model/AreaformativaModel.php');
-   	
+   				<p><a href='index.php?controlador=curso'>Sortir</a>");*/
+    if (!Login::getUsuario())
+    	throw new Exception("Opció restringida per a usuaris registrats");
+     
+   	$this->load('model/AreaformativaModel.php');   	
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
-   	
-
-   	// Si llego al form via GET, no me han metido nada en los filtros
-   	// si no hi ha filtres, es la primera vegada que accedeixen, i només caldra mostrar
-   	//formulari de filtre. Si no, caldrà buscar les dades i passar-li a la vista.
-   	
-    if ($_SERVER["REQUEST_METHOD"]=='GET' || empty($_POST['filtros']))
-    	$filtros=array();
-   	else {
-	
-   		$filtros=$_POST['filtros'];
-   		$conexion = Database::get();
-   		$filtrar=array();
-   		//para impedir las sqlinjection, tratamos una a una las cadenas que nos llega por post
-   		//y preservamos el array de filtros para devolverlo a la vista
-        foreach ($filtros as $cl=>$v)
-        	if ($v)
-        		$filtrar[$cl]=$conexion->real_escape_string($v); 
-        //Si no se indica ningún filtro, llamar al método que nos retorna todos los cursos
-        // que no tengan fecha de inicio, o cuya fecha de inicio sea futura.
-        if (count($filtrar))
-        	$cs=CursModel::cursos_filtrats($filtrar);
-        else 
-        	$cs=CursModel::cursos();
-        
-  
-   		$datos['cursos']=$cs;
-   		
-   	}
-   	
    	$datos['arees']=AreaformativaModel::arees_formatives();
-   		
-   	/*
-   	 *  La vista haurà de mirar si li arriven cursos.
-   	 *  Si l'arrai cursos no existeix, haurà de posar només formulari
-   	 *  Si l'arrai concursos existeix, pintarà capçalera llistat, i les dades que arribin
-   	 */
-    $datos['tipos']=CursModel::tipus(); //pasar los tipos de curso que hay, para el datalist de la vista
-   	$datos['filtros']=$filtros;  //volver a pasar los mismos filtros que llegaron del form.
-   	
-   	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
-   	  $this->load_view('view/cursos/lista.php',$datos);
-   	else 
-   		$this->load_view('view/cursos/admin/lista_admin.php',$datos);
-   	
+   	$datos['subscripcions']=SusbcripcioModel::suscripcions_alumne(Login::getUsuario()->id);
+   	$this->load_view('view/Areesformatives/llistar_af.php',$datos);
    }
-   	
+   /*
+    *  Opció de l'usuari quan s'inscriu en un curs.
+    */
+   public function suscripcio(){
+   	   if (Login::isAdmin())
+   	   	 throw new Exception("Operació no contemplada per a l'administrador");
+   	   if (!Login::getUsuario())
+   	   	  throw new Exception("Operació només per a usuaris registrats");
+   	   
+   }
    //OPERACIONS DE L'ADMINISTRADOR
    //Donar d'alta una nova area formativa
    public function nuevo(){

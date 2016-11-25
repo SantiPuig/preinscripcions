@@ -58,7 +58,8 @@
 				<?php if (!$usuario)	{?>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registre</a></li>
 				<?php } else {?>	 
-					<li><a href="index.php?controlador=Usuario&operacion=modificacion">Consultar</a></li>
+					<li><a href="index.php?controlador=Usuario&operacion=modificacion">Les meves dades</a></li>					
+					<li><a href="index.php?controlador=areaformativa&operacion=listar">Arees formatives</a></li>
 				<?php }	?>			
 				</ul>
 				<?php 

@@ -19,7 +19,7 @@
 		
 		<section id="content">
 		
-		<a class="derecha" href='index.php?controlador=areaformativa&operacion=borrar&parametro=<?php echo $curs->id;?>> 
+		<a class="derecha" href='index.php?controlador=areaformativa&operacion=borrar&parametro=<?php echo $area->id;?>'> 
   		<img class='boton' src='images/botones/delete.png'> </a>				
 			<h2>Modificació area formativa</h2>
 			
