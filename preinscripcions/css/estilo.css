@@ -102,7 +102,7 @@ header{
 	background-color: #eef;
 	color: yellow;
 	text-shadow: 1px 1px 3px #99a;
-	background-image: url(../images/CEFO.jpg);
+	background-image: url(../images/soc.png);
 	background-size: 100% 100%;
 }
 
@@ -111,7 +111,7 @@ header{
 }
 
 header h1{
-	font-size: 3em;	
+	font-size: 1em;	
 }
 
 header figure{

@@ -7,7 +7,7 @@
 				<!-- 
 				<figure>
 					<a href="index.php">
-						<img alt="cefo" src="images/CEFO.jpg" />
+						<img alt="soc" src="images/soc.png" />
 					</a>
 				</figure>
 				 -->

@@ -18,7 +18,7 @@
 		?>
 
 		<section id="content">
-			<h2>CURSOS CEFO</h2>
+			<h2>CURSOS CIFO</h2>
 			
 			<p>Els cursos de formació professional per a l'ocupació són programes formatius teòrico - pràctics</p>
 			
