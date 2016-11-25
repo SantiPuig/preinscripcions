@@ -30,6 +30,7 @@ class AreaformativaModel{
 
 	//retorna la area formativa a partir del seu ID
 	public static function getAreaFormativa($idarea=0){
+		$idarea=intval($idarea);
 		$consulta = "SELECT * FROM arees_formatives WHERE id=$idarea;";
 		$resultado = Database::get()->query($consulta);
 			
@@ -64,7 +65,7 @@ class AreaformativaModel{
 	}	
 	
 }
-class SusbcripcioModel{
+class SubscripcioModel{
 	public $id_usuari,$id_area,$data;
 	public function guardar(){
 	

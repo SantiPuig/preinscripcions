@@ -70,14 +70,14 @@
 				*/				
 				//guardar el usuario en BDD
 				if(!$u->guardar())
-					throw new Exception('No se pudo registrar el usuario');
+					throw new Exception("No s'ha pogut registrar l'usuari");
 				
 				//mostrar la vista de éxito
 				$_SESSION['user'] = serialize(UsuarioModel::getUsuario_ByDni($u->dni));
 				Login::comprobar();   //marca la sessió ja de l'usuari
 				$datos = array();
 				$datos['usuario'] = Login::getUsuario();
-				$datos['mensaje'] = 'Operación de registro completada con éxito';
+				$datos['mensaje'] = 'Operació de registre completada amb èxit';
 				$this->load_view('view/exito.php', $datos);
 			}
 		}
@@ -87,7 +87,7 @@
 		public function modificacion($idalumne){
 			//si no hay usuario identificado... error
 			if(!Login::getUsuario())
-				throw new Exception('Hal estar registrat per poder modificar les teves dades');
+				throw new Exception("Has d'estar registrat per poder modificar les teves dades");
 			if(!Login::isAdmin()&&($idalumne&&$idalumne!=Login::getUsuario()->id))
 				throw new Exception ("Només l'administrador pot accedir a les dades d'un altre alumne");
 			if (!$idalumne)
@@ -156,7 +156,7 @@
 				//modificar el usuario en BDD
 				//var_dump($u);
 				if(!$u->actualizar())
-					throw new Exception('No se pudo modificar');
+					throw new Exception('No es pot modificar');
 		
 							
 				//mostrar la vista de éxito
@@ -177,10 +177,10 @@
 			else	{
 				$u = Login::getUsuario(); //se traera el usuario que este logeado
 				if($p!=$u->id)
-					throw new Exception("Intentas dar de baja al usuario con ID=$p");
+					throw new Exception("Estas intentant donar de baixa a l'usuari amb ID=$p");
 			}
 			//asegurarse que el usuario está identificado
-			if(!$u) throw new Exception('Debes estar identificado para poder darte de baja');
+			if(!$u) throw new Exception('Cal estar registrat per donar-te de baixa');
 			
 			//si no nos están enviando la conformación de baja
 			if(empty($_POST['confirmar'])){	

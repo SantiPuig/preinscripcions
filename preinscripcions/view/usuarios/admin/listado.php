@@ -57,7 +57,7 @@
 			  }
 			?>
 			
-			<a class='volver' href=index.php>Volver a inicio</a>			
+			<a class='volver' href=index.php>Tornar a l'inici</a>			
 		</section>
 		
 		<?php Template::footer();?>
