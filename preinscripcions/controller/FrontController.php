@@ -62,6 +62,7 @@
 				
 				//cargar la vista
 				$this->load_view('view/error.php', $datos);
+				//echo "<script language='javascript'>window.location='index.php'</script>";
 			}	
 		}
 	}

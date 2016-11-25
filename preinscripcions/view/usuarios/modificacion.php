@@ -1,6 +1,3 @@
-
-
-------------------------------------------------------
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,12 +9,14 @@
 	
 	<body>
 		<?php 
-			Template::header(); //pone el header
+		  	Template::header(); //pone el header
+			
+			$u=Login::getUsuario();
 
 			if(!$usuario) Template::login(); //pone el formulario de login
-			else Template::logout($usuario); //pone el formulario de logout
+			else Template::logout($u); //pone el formulario de logout
 			
-			Template::menu($usuario); //pone el menú
+			Template::menu($u); //pone el menú
 		?>
 		
 		<section id="content">
@@ -103,17 +102,49 @@
 				?>
 				</select>
 				<br>
-				<input type="submit" name="modificar" value="modificar"/><br>
+				<input type="submit" name="modificar" value="modificar"/>
+				<a href="index.php?controlador=Usuario&operacion=baja&parametro=<?php echo $usuario->id;?>"><img class='boton' src='images/botones/delete.png' >			  		
+				</a>
+			
 			</form>
-			<a class="derecha" href="index.php?controlador=Usuario&operacion=baja&parametro=<?php echo $usuario->id;?>">
-			<img class='boton' src='images/botones/delete.png' >
-			  		
-			</a>
 			
 				
 		</section>
 		<section id="llistat">
-		
+		<?php
+		   if (!empty($inscripcions)){		   	  	   	
+		?>
+			<table>
+			<tr>			  
+			 	<th>codi</th>	
+				<th>nom</th>				
+				<th>data inici</th>				
+				<th>data fi</th>				
+				<th>horari</th>				
+				<th>torn</th>			
+				<th>inscrits</th>
+				<th>Operacions</th>				
+			 </tr>
+		<?php
+			
+			foreach ($inscripcions as $i){
+				echo "<tr>";
+				echo "<td>$i->codi</td>";
+				echo "<td>$i->nom</td>";
+				echo "<td>$i->data_inici</td>";
+				echo "<td>$i->data_fi</td>";
+				echo "<td>$i->horari</td>";
+				echo "<td>$i->torn</td>";
+				echo "<td>$i->inscrits</td>";
+				echo "<td><a href=index.php?controlador=curso&operacion=ver&parametro=$i->id_curs>";
+				echo "<img class='boton' src='images/botones/ver.png'> </a>";
+				echo "<a href=index.php?controlador=preinscripcio&operacion=borrar&parametro=$i->id_curs&usuari=$usuario->id> ";
+				echo "<img class='boton' src='images/botones/delete.png'> </a></td>";
+			  echo "</tr>";				 
+			}
+			echo "</table>";
+		 }
+		?>	 
 		</section>
 		
 		<?php Template::footer();?>

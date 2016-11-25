@@ -72,7 +72,8 @@
 		</section>
 		<section id="content">
 			
-		<?php if (!empty($cursos)) {?>	
+		<?php 
+		if (!empty($cursos)) {?>	
 			<strong>
 			    <div class="llistat_cursos flex-container">
 			    

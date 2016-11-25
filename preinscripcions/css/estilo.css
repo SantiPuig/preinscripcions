@@ -47,7 +47,7 @@ RESET DE ESTILO Y REGLAS GENERALES
 }
 .flexgran{
 	flex:3;
-	font-size:0.9	0em;
+	font-size:0.80em;
 }
 
 .llistat{
@@ -199,23 +199,50 @@ nav ul.menu>li:hover{
 	width: 90%;
 }
 
+#llistat table{
+	margin: auto;
+	width: 100%;
+}
+
 #content table th{
 	color: white;
 	background-color: blue;
 	text-align: center;
 	font-weight: bold;
 }
+
+#llistat table th{
+	color: white;
+	background-color: blue;
+	text-align: center;
+	font-weight: bold;
+}
+
 #content table td, #content table th{
 	padding: 10px;
 }
+
+#llistat table td, #content table th{
+	padding: 10px;
+}
+
 #content table tr:nth-of-type(even){
+	background-color: #eef;
+}
+
+#llistat table tr:nth-of-type(even){
 	background-color: #eef;
 }
 
 #content form input{
 	margin-top: 5px;
 	padding: 4px;
+	
 }
+#content form input[name=nom]{
+	width: 400px;
+}
+
 #content form label{
 	display: inline-block;
 	min-width: 140px;

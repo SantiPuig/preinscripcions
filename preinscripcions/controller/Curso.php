@@ -13,31 +13,32 @@
    	$datos=array();
    	$datos['usuario']=Login::getUsuario();
    	
-
+    //var_dump($_POST); 
    	// Si llego al form via GET, no me han metido nada en los filtros
    	// si no hi ha filtres, es la primera vegada que accedeixen, i només caldra mostrar
    	//formulari de filtre. Si no, caldrà buscar les dades i passar-li a la vista.
    	
-    if ($_SERVER["REQUEST_METHOD"]=='GET')
+    if ($_SERVER["REQUEST_METHOD"]=='GET' || empty($_POST['filtros']))
     	$filtros=array();
    	else {
-	
+	    //echo "entro en else";
    		$filtros=$_POST['filtros'];
    		$conexion = Database::get();
    		$filtrar=array();
    		//para impedir las sqlinjection, tratamos una a una las cadenas que nos llega por post
    		//y preservamos el array de filtros para devolverlo a la vista
         foreach ($filtros as $cl=>$v)
-        	if ($v)
+        	if (strlen($v))
         		$filtrar[$cl]=$conexion->real_escape_string($v); 
         //Si no se indica ningún filtro, llamar al método que nos retorna todos los cursos
         // que no tengan fecha de inicio, o cuya fecha de inicio sea futura.
+        // var_dump($filtrar);
         if (count($filtrar))
         	$cs=CursModel::cursos_filtrats($filtrar);
         else 
         	$cs=CursModel::cursos();
         
-  
+     
    		$datos['cursos']=$cs;
    		
    	}
@@ -51,6 +52,8 @@
    	 */
     $datos['tipos']=CursModel::tipus(); //pasar los tipos de curso que hay, para el datalist de la vista
    	$datos['filtros']=$filtros;  //volver a pasar los mismos filtros que llegaron del form.
+
+   	//var_dump($datos);
    	
    	if (!Login::isAdmin())  //L'administrador tindrà una vista diferent
    	  $this->load_view('view/cursos/lista.php',$datos);
@@ -83,9 +86,11 @@
    	$datos['curso']=$c;
    	$datos['areaformativa']=AreaformativaModel::getAreaFormativa($c->id_area)->nom;
    	
-   	if (Login::isAdmin())
+   	if (Login::isAdmin()){
+   		$this->load('model/PreinscripcioModel.php');
+   		$datos['alumnes']=PreinscripcioModel::alumnes_preinscrits($id);
    		$this->load_view('view/cursos/admin/detalles_curso_admin.php',$datos);
-   	else	
+   	} else	
    		$this->load_view('view/cursos/detalles_curso.php',$datos);   	
    	
    }
@@ -197,7 +202,7 @@
    			throw new Exception ("Opció restringida només per a l'administrador");
    		// recuperar curs de la BD
    		$this->load('model/cursmodel.php');
-   		echo "curs $id";
+   		//echo "curs $id";
    		$c=CursModel::getCurs($id);
    		
    		//comprovar que el curs s'ha carregat correctament

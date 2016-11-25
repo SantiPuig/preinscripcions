@@ -40,8 +40,12 @@
 				throw new Exception('Error en la identificacion');
 		
 			//recupera el usuario y lo guarda en la variable de sesión
-			$_SESSION['user'] = serialize(UsuarioModel::getUsuario_ByDni($u));					
-		}
+			$_SESSION['user'] = serialize(UsuarioModel::getUsuario_ByDni($u));	
+			/*if(self::$usuario->admin)
+				echo "<script language='javascript'>window.location='index.php?controlador=curso&operacion=listar'</script>";
+			else	
+				echo "<script language='javascript'>window.location='index.php?controlador=usuario&operacion=modificacion'</script>";
+		*/}
 		
 		//método que realiza la operación de logout
 		//(se usa cuando se hace logout o se da de baja el usuario activo)
@@ -56,6 +60,7 @@
 			//elimina la cookie de sesión (reseteará el ID de sesión)
 			$p = session_get_cookie_params();
 			setcookie(session_name(),'',time()-1000,$p['path'],$p['domain'],$p['secure'],$p['httponly']);
+			echo "<script language='javascript'>window.location='index.php'</script>";
 		}
 		
 		

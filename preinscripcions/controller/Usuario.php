@@ -6,6 +6,10 @@
 		//PROCEDIMIENTO PARA REGISTRAR UN USUARIO
 		public function registro(){
 
+			//comprobar si es un usuari ja registrat, diferent a admin
+			if (!Login::isAdmin()&&Login::getUsuario())
+				throw new Exception("Ja estas registrat! Cal tancar sessió per crear nou registre.");
+			
 			//si no llegan los datos a guardar
 			if(empty($_POST['guardar'])){
 				
@@ -69,6 +73,8 @@
 					throw new Exception('No se pudo registrar el usuario');
 				
 				//mostrar la vista de éxito
+				$_SESSION['user'] = serialize(UsuarioModel::getUsuario_ByDni($u->dni));
+				Login::comprobar();   //marca la sessió ja de l'usuari
 				$datos = array();
 				$datos['usuario'] = Login::getUsuario();
 				$datos['mensaje'] = 'Operación de registro completada con éxito';
@@ -78,31 +84,33 @@
 		
 
 		//PROCEDIMIENTO PARA MODIFICAR UN USUARIO
-		public function modificacion(){
+		public function modificacion($idalumne){
 			//si no hay usuario identificado... error
 			if(!Login::getUsuario())
-				throw new Exception('Debes estar identificado para poder modificar tus datos');
-				
+				throw new Exception('Hal estar registrat per poder modificar les teves dades');
+			if(!Login::isAdmin()&&($idalumne&&$idalumne!=Login::getUsuario()->id))
+				throw new Exception ("Només l'administrador pot accedir a les dades d'un altre alumne");
+			if (!$idalumne)
+				$idalumne=Login::getusuario()->id;
 			//si no llegan los datos a modificar
 			if(empty($_POST['modificar'])){
 				
 				//mostramos la vista del formulario
 				$datos = array();
 				//var_dump($_GET);
-				if (empty($_GET['parametro']) || !Login::isAdmin())
+			/*	if ($idalumne || !Login::isAdmin())
 					$datos['usuario'] = Login::getUsuario();
 				else 
-					$datos['usuario']= UsuarioModel::getUsuario($_GET['parametro']);
-
+					$datos['usuario']= UsuarioModel::getUsuario($idalumne);*/
+				$datos['usuario']= UsuarioModel::getUsuario($idalumne);
 				//var_dump($datos);	
 				//$datos['max_image_size'] = Config::get()->user_image_max_size;
 				
-				$dni=$datos['usuario']->dni;
+				$dni=$datos['usuario']->id;
 				$this->load('model/PreinscripcioModel.php');
 				$datos['inscripcions']=PreinscripcioModel::preinscripcions_alumne($dni);
 				//var_dump($datos);
 				$this->load_view('view/usuarios/modificacion.php', $datos);
-					
 				//si llegan los datos por POST
 			}else{
 				//recuperar los datos actuales del usuario
@@ -166,9 +174,11 @@
 			//recuperar usuario
 			if (Login::isAdmin()) //si es el administrador
 				$u=UsuarioModel::getUsuario($p); //traer el usuario que llega por parametro
-			else 
+			else	{
 				$u = Login::getUsuario(); //se traera el usuario que este logeado
-			throw new Exception("Intentas dar de baja al usuario con ID=$p");
+				if($p!=$u->id)
+					throw new Exception("Intentas dar de baja al usuario con ID=$p");
+			}
 			//asegurarse que el usuario está identificado
 			if(!$u) throw new Exception('Debes estar identificado para poder darte de baja');
 			
@@ -182,13 +192,13 @@
 			//si nos están enviando la confirmación de baja
 			}else{
 				//validar password
-				$p = MD5(Database::get()->real_escape_string($_POST['password']));
-				if($u->password != $p) 
-					throw new Exception('El password no coincide, no se puede procesar la baja');
+				$dni = $_POST['dni'];
+				if($u->dni != $dni) 
+					throw new Exception('Error. DNI no coincideix. Operació cancelada');
 				
 				//de borrar el usuario actual en la BDD
 				if(!$u->borrar())
-					throw new Exception('No se pudo dar de baja');
+					throw new Exception('No es pot donar de baixa');
 					
 					/*
 				//borra la imagen (solamente en caso que no sea imagen por defecto)
@@ -202,7 +212,7 @@
 				//mostrar la vista de éxito
 				$datos = array();
 				$datos['usuario'] = null;
-				$datos['mensaje'] = 'Eliminado OK';
+				$datos['mensaje'] = 'Eliminat OK';
 				$this->load_view('view/exito.php', $datos);
 			}
 		}

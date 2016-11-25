@@ -57,14 +57,19 @@
 				<ul class="menu">
 					<li><a href="index.php">Inici</a></li>
 					<li><a href="index.php?controlador=curso&operacion=listar">Cursos</a></li>
+				<?php if (!$usuario)	{?>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registre</a></li>
-							
+				<?php } else {?>	 
+					<li><a href="index.php?controlador=Usuario&operacion=modificacion">Les meves dades</a></li>					
+					<li><a href="index.php?controlador=areaformativa&operacion=listar">Arees formatives</a></li>
+				<?php }	?>			
 				</ul>
 				<?php 
 				//pone el menú del administrador
 				if($usuario && $usuario->admin){	?>
 				<ul class="menu">
 					<li><a href="index.php?controlador=curso&operacion=nuevo">Nou curs</a></li>
+					<li><a href="index.php?controlador=areaformativa&operacion=nuevo">Arees formatives</a></li>
 					<li><a href="index.php?controlador=Usuario&operacion=listar">Llistar Usuaris</a></li>
 				</ul>
 							

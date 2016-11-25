@@ -34,18 +34,7 @@
    		throw new Exception('Solo para usuarios registrados');*/
    	
    		//demanar al model que ens passi el curs en questió
-   	$this->load('model/cursmodel.php');
-   	$c=CursModel::getCurs($id);
    	
-   	if (!$c)
-   		throw new Exception('No se encuentra el Curso :-(');
-   	
-   		   	
-   	//passar el pc a la vista
-   	$datos=array();
-   	$datos['usuario']=Login::getUsuario();
-   	$datos['curs']=$c;
-   	$this->load_view('view/cursos/detalles.php',$datos);   	
    	
    }
    //OPERACIONS DE L'ADMINISTRADOR
@@ -77,7 +66,7 @@
    	$datos=array();
 
    	$datos['usuario']=login::getUsuario();
-   	$datos['mensaje']="T'has inscrit al curs $c->codi - $c->nom correctament";
+   	$datos['mensaje']="T'has inscrit al curs $c->codi - $c->nom correctament<br><a href=index.php?controlador=usuario&operacion=modificacion><p><b>Actualitzar dades</b></a>";
    	$this->load_view('view/exito.php',$datos);
    		
    }
@@ -138,43 +127,31 @@
     */
    	public function borrar($id=0){
    		//comprovar si es administrador
-   		if(!Login::isAdmin())
-   			throw new Exception ("Opció restringida només per a l'administrador");
-   		// recuperar curs de la BD
-   		$this->load('model/cursmodel.php');
-   		$c=CursModel::getCurs($id);
+   		if(!Login::getUsuario())
+   			throw new Exception("Opció només per a usuaris registrats");
+   		if(!$id)
+   			throw new Exception("Per seguretat, cal fer servir aquesta opcio nomes des dels menus de l'aplicació
+   					<br><a href='index.php'><b>Tornar a l'inici</b></a>");
    		
-   		//comprovar que el curs s'ha carregat correctament
-   		if (empty($c))
-   			throw new Exception("No es troba el curs");
-   		//si encara no han confirmat esborrar
-   		if(empty($_POST['borrar'])){
-   			//mira si hi ha preinscripcions al curs.
-   			$this->load('model/PreinscripcioModel.php');
-   			$filtre=array();
-   			$filtre['id_curs']=$id;
-   			$inscrits=count(PreinscripcioModel::preinscripcions(filtre));
-   			
-   			//mostrar la vista de confirmació   			
-   			$datos=array();
-   			$datos['usuario']=Login::getUsuario();
-   			$datos['curs']=$c;
-   			$datos['inscrits']=$inscrits;
-   			
-   			$this->load_view('view/pcs/admin/borrar.php',$datos);
-   		}else{ //si ja m'estan confirmant la baixa
-   			// esborrar el curs de la BDD
-   			if(!$c->borrar())
-   				throw new Exception('Error al intentar donar de baixa el curs');
-   			//carregar la vista d'exit
-   			//$datos[''] ...
-   			
-   			//tornar a carregar el llistat de PCs
-   			//$datos=array();
-   			//$datos['usuario']=Login::getUsuario();
-   			$this->listar();   			
-   			
-   		}
+   		$this->load('model/PreinscripcioModel.php');
+   		$preins=new PreinscripcioModel();
+   		$preins->id_curs=$id;
+   		// cal mirar si es l'admin qui vol donar de baixa	
+   		if(Login::isAdmin()) // si es que si, cal mirar el parametre usuari
+   			$preins->id_usuari=$_GET['usuari'];
+   		else 
+   			$preins->id_usuari=Login::getUsuario()->id;
+   		
+   		if (!$preins->borrar())
+   			throw new Exception("No s'ha pogut esborrar la preinscripcio!");
+   		if (empty($_GET['vista'])||!Login::isAdmin())
+   			header("location:index.php?controlador=usuario&operacion=modificacion&parametro=$preins->id_usuari");
+   		   // echo "<script language='javascript'>window.location='index.php?controlador=usuario&operacion=modificacion'</script>";
+   		else 
+   			header("location:index.php?controlador=curso&operacion=ver&parametro=$id");
+   		
+   		  			
+   		
    	}
 }
    		

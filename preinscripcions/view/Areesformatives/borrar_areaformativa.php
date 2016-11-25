@@ -3,7 +3,7 @@
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
-		<title>BAIXA DE USUARIS</title>
+		<title>BAIXA DE AREES FORMATIVES</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
@@ -18,17 +18,20 @@
 		?>
 		
 		<section id="content">
-			<h2>Formulari de baixa de usuari</h2>
-			<p>Si us plau, confirma la teva solicitud de baixa introduint el DNI associat al teu compte.</p>
-		
+			<h2>Confirmació de baixa d'area formativa</h2>
+			<!-- 
+			<?php 
+			//if ($inscrits)
+			//    echo "<p>En aquest curs hi ha $inscrits alumnes preinscrits";
+			?>
+			 -->
+			<p>Segur que vols esborrar l'area formativa:
+			
+			<?php  echo " $area->id - $area->nom?";?>
+			
 			<form method="post" autocomplete="off">
-
 				
-				<label>DNI:</label>
-				<input type="text" name="dni" required="required"/><br/>
-				
-				<label></label>
-				<input type="submit" name="confirmar" value="Confirmar"/><br/>
+				<input type="submit" name="borrar" value="Esborrar"/><br/>
 			</form>
 		</section>
 		
