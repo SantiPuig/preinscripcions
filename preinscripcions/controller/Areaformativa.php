@@ -61,10 +61,18 @@
     *  Operació per que l'usuari es doni de baixa d'una subscripció
     */
    public function baja($idarea){
-  	   if (Login::isAdmin())
-   	   	 throw new Exception("Operació no contemplada per a l'administrador");
-   	   if (!Login::getUsuario())
-   	   	  throw new Exception("Operació només per a usuaris registrats");
+  	   if (Login::isAdmin()) {
+  	   	 if (empty($_GET['usuari']))
+   	   	     throw new Exception("Operació no contemplada per a l'administrador");  	   	 	
+  	   	 $idus=intval($_GET['usuari']);
+  	     if(!$idus)
+   	   	     throw new Exception("Operació no contemplada per a l'administrador");
+  	   } else {
+	   	   if (!Login::getUsuario())
+	   	   	  throw new Exception("Operació només per a usuaris registrats");
+	   	   $idus=intval(Login::getUsuario()->id);
+  	   }
+   	   //printf("El codigo de usuario es %d",$idus);
    	   $id=intval($idarea);
    	   if ($id!=$idarea)  //per evitar que no passin un literal, i sigui interpretat com 0
    	   	  	throw new Exception("Area desconeguda");
@@ -72,11 +80,17 @@
    	   $this->load("model/AreaformativaModel.php");
    	   $subs=new SubscripcioModel();
    	   $subs->id_area=$id;
-   	   $subs->id_usuari=Login::getUsuario()->id;
+   	   $subs->id_usuari=$idus;
    	   if (!$subs->borrar())
    	   	  throw new Exception("Error en intentar donar de baixa de la subscripció");
-   	   header("location:index.php?controlador=Areaformativa");
-   	   	  
+   	   if (empty($_GET['vista']))
+   	      header("location:index.php?controlador=Areaformativa");
+   	   elseif ($_GET['vista']='usuari')
+   	      header("location:index.php?controlador=usuario&operacion=modificacion&parametro=$idus");
+   	 /* var_dump($_GET);
+   	  echo $idus;
+   	  echo "<br> ahora me dirigia a: index.php?controlador=usuario&operacion=modificacion&parametro=$idus";
+   	  */ 	  
    }
    
    //OPERACIONS DE L'ADMINISTRADOR
@@ -160,10 +174,10 @@
    	}
    }
    public function ver($id=0){
-   	//comprovar si l'usuari es admin
-   	if (!Login::isAdmin())
-   		throw new Exception("Opció restringida per a l'administrador");
-   
+	   	//comprovar si l'usuari es admin
+	   	if (!Login::isAdmin())
+	   		throw new Exception("Opció restringida per a l'administrador");
+	   
    		//Recuperar dades
    		$this->load('model/AreaformativaModel.php');
    		$ar=AreaformativaModel::getAreaFormativa($id);
@@ -171,9 +185,11 @@
    		if (empty($ar))
    			throw new Exception("No s'ha trobat cap area formativa amb Id $id");
   				//pintar formulari
+  		
   		$datos=array();
    		$datos['usuario']=Login::getUsuario();
    		$datos['area']=$ar;
+   		$datos['subscripcions']=SubscripcioModel::alumnes_subscrits($id);
    		$this->load_view('view/Areesformatives/veure_area.php',$datos);   
    	}
    /*

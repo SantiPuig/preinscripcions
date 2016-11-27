@@ -89,7 +89,7 @@ html{
 body{
 	background-color: #fff;
 	font-family: arial, verdana;
-	width: 80%;
+	width: 90%;
 	padding: 2%;
 	margin: 10px auto 10px auto;
 	box-shadow: 0px 0px 4px rgba(60,60,60,0.6);	
@@ -141,7 +141,7 @@ header hgroup{
 }
 
 #login input{
-	width: 80px;
+	width: 100px;
 }
 
 #logout img{
@@ -225,6 +225,10 @@ nav ul.menu>li:hover{
 	font-weight: bold;
 }
 
+#content table th[colspan]{
+	background-color:skyblue;
+}
+
 #content table td, #content table th{
 	padding: 10px;
 }
@@ -240,6 +244,7 @@ nav ul.menu>li:hover{
 #llistat table tr:nth-of-type(even){
 	background-color: #eef;
 }
+
 
 #content form input{
 	margin-top: 5px;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -114,6 +114,7 @@
 		<?php
 		   if (!empty($inscripcions)){		   	  	   	
 		?>
+			<h2>Les meves preinscripcions</h2>
 			<table>
 			<tr>			  
 			 	<th>codi</th>	
@@ -145,6 +146,27 @@
 			echo "</table>";
 		 }
 		?>	 
+					<h2>Les meves subscripcions</h2>
+			<?php 
+				if (!$subscripcions)
+					echo "Encara no tinc cap suscripció";
+				else { ?>
+			<table>
+			<tr><th>Area formativa</th><th>Data subscripció</th><th>Donar de baixa</th></tr>
+			<?php 
+				if (!$subscripcions)
+					echo "Encara no tinc cap suscripció";
+				else
+				  foreach ($subscripcions as $s){
+						echo "<tr><td>$s->nom</td>";
+						echo "<td>$s->data</td>";
+						echo "<td><a href='index.php?controlador=areaformativa&operacion=baja&parametro=$s->id_area&usuari=$usuario->id&vista=usuari'>";
+						echo "<img class='boton' src='images/botones/delete.png'> </a></td></tr>";
+					}
+			?>
+			
+			</table>
+			<?php }?>
 		</section>
 		
 		<?php Template::footer();?>

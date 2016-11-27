@@ -8,7 +8,8 @@
 
 			//comprobar si es un usuari ja registrat, diferent a admin
 			if (!Login::isAdmin()&&Login::getUsuario())
-				throw new Exception("Ja estas registrat! Cal tancar sessió per crear nou registre.");
+				header("location:index.php?controlador=usuario&operacion=modificacion");
+				//throw new Exception("Ja estas registrat! Cal tancar sessió per crear nou registre.");
 			
 			//si no llegan los datos a guardar
 			if(empty($_POST['guardar'])){
@@ -90,9 +91,11 @@
 				throw new Exception("Has d'estar registrat per poder modificar les teves dades");
 			if(!Login::isAdmin()&&($idalumne&&$idalumne!=Login::getUsuario()->id))
 				throw new Exception ("Només l'administrador pot accedir a les dades d'un altre alumne");
+			
 			if (!$idalumne)
 				$idalumne=Login::getusuario()->id;
 			//si no llegan los datos a modificar
+			
 			if(empty($_POST['modificar'])){
 				
 				//mostramos la vista del formulario
@@ -108,7 +111,10 @@
 				
 				$dni=$datos['usuario']->id;
 				$this->load('model/PreinscripcioModel.php');
+				$this->load('model/AreaformativaModel.php');
+				
 				$datos['inscripcions']=PreinscripcioModel::preinscripcions_alumne($dni);
+				$datos['subscripcions']=SubscripcioModel::suscripcions_alumne($idalumne);
 				//var_dump($datos);
 				$this->load_view('view/usuarios/modificacion.php', $datos);
 				//si llegan los datos por POST

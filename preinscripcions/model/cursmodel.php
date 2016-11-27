@@ -59,12 +59,12 @@ class CursModel{
 	
 	//Este método retorna todos los cursos de la base de datos
 	public static function cursos(){
-		$consulta = "select *
-						from cursos
+		$consulta = "select c.*,af.nom nom_area
+						from cursos c left join arees_formatives af on af.id=c.id_area
 						where data_inici is null
 						or data_inici=''
 						or data_inici>now()
-						order by data_inici;";
+						order by af.nom,data_inici;";
 	
 		$resultado = Database::get()->query($consulta);
 		
@@ -79,7 +79,7 @@ class CursModel{
 	//Este método retorna todos los cursos que coincidan con el filtro pasado.
 	// se pasará por parámetro un array tipo campo:valor que definirá el campo a filtrar y el valor a filtrar
 	public static function cursos_filtrats($filtros=array()){
-		$consulta = "SELECT * FROM cursos ";
+		$consulta = "SELECT c.*,af.nom nom_area FROM cursos c left join arees_formatives af on af.id=c.id_area ";
 		$where="";
 		if (is_array($filtros) || is_object($filtros))
 			foreach ($filtros as $campo=>$valor) {
@@ -87,24 +87,24 @@ class CursModel{
 					$where.=" and data_inici>='$valor'";
 				elseif ($campo=='finsd')
 					$where.=" and data_inici<='$valor'";
+				elseif (($campo=='id_area')||($campo=='hores'))
+					$where.=" and c.$campo=$valor";
 				else
-					$where.=" and upper($campo) like upper('%$valor%')";
+					$where.=" and upper(c.$campo) like upper('%$valor%')";
 			}
 		if ($where)
 			$consulta.=" where ".substr($where, 5);
-		/*else 
-			echo "No hay where!<br>";*/
-		$consulta.=";";
+		$consulta.=" order by af.nom;";
+		
 			
 		//echo $consulta;
 		$resultado = Database::get()->query($consulta);
 	
 		$cursos=Array();
 	
-		while ($curs = $resultado->fetch_object('CursModel'))
+		while ($curs = $resultado->fetch_object())
 			$cursos[]=$curs;
-			$resultado->free();
-				
+			$resultado->free();	
 		return $cursos;
 	}
 	public static function tipus(){

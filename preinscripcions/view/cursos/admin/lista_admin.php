@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -95,7 +95,7 @@
 			  		echo "<div class='flex'>$curs->data_inici</div>";
 			  		echo "<div class='flex'>$curs->data_fi</div>";
 			  		echo "<div class='flex'>";
-			  		echo "<a href='index.php?controlador=curso&operacion=ver&parametro=$curs->id'> ";
+			  		echo "<a href='index.php?controlador=curso&operacion=ver&parametro=$curs->id' title='veure detalls del curs i quins alumnes hi ha preinscrits'> ";
 			  		echo "<img class='boton' src='images/botones/ver.png' height='24' width='24'> </a>"; 
 			  		echo "<a href='index.php?controlador=curso&operacion=modificar&parametro=$curs->id'> ";								
 			  		echo "<img class='boton' src='images/botones/modify.png' height='24' width='24'> </a>"; 
@@ -107,8 +107,7 @@
 			  }
 		}
 			?>
-			
-			<a class='volver' href=index.php>Volver a inicio</a>			
+					
 		</section>
 		
 		<?php Template::footer();?>

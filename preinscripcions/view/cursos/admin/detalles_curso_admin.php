@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -49,7 +49,7 @@
 				
 		?>
  			</table>	
-			<a class='volver' href=index.php>Volver a inicio</a>			
+				
 		</section>
 		<section id="llistat">
 		<?php 

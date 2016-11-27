@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -22,12 +22,13 @@
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
 			
 				<label>DNI:</label>
-				<input type="text" name="dni" required="required"/>
+				<input type="text" name="dni" required="required" placeholder="Introduir el vostre DNI"/>
 				<br>
 				
 				<label>Data de naixement:</label>
 				<input type="text" name="data_naixement" required="required" 
 					pattern="((19)|(20))[1-9][0-9]-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[01]))"
+					placeholder="format AAAA-MM-DD"
 				/>
 				<br/>
 	
@@ -53,7 +54,7 @@
 				    /><br>
 				
 				<label>Fix:</label>
-				<input type="text" name="telefon_fix" required="required"
+				<input type="text" name="telefon_fix" 
 				    /><br>
 				<label>Estudis:</label>
 				<select name="estudis">
