@@ -89,14 +89,7 @@ Si només voleu que apareguin els cursos de formació contínua marqueu la casel
 
 Complementàriament, també podeu informar-vos sobre els cursos que desenvolupa la Xarxa FP.CAT. 
 					
-				</p>
-				<p> <figure>
-					<a href="index.php">
-						<img alt="cefo" src="images/curso3.jpg" />
-					</a>
-				</figure>
-				 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11943.020304594402!2d2.0567173999999997!3d41.55290005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1480071406532" width="300" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>	 
-         		</p>
+				
 			</footer>
 		<?php }
 	}
