@@ -47,11 +47,16 @@
 			echo "</table><br>";
 			if ($usuario)
 				echo "<input type='button' onclick='location.href=\"index.php?controlador=Preinscripcio&operacion=nuevo&parametro=$curso->id\";' value='Inscriure'/><br>";
-			
 				
 				
 		?>
- 				
+ 			<br>
+ 			<div class="uno">
+ 			<a href='index.php?controlador=curso&operacion=exportar&parametro=<?php echo $curso->id;?>'>Exportar preinscripcions</a>
+ 			<a href='javascript:alert('Volem imprimir el curs <?php echo $curso->id;?>');>Imprimir</a>
+ 			</div>
+ 			<br>
+ 			
 			<a class='volver' href=index.php>Tornar a l'inici</a>			
 		</section>
 		

@@ -20,8 +20,9 @@
 		?>
 		
 		<section id="content">
+		<div class="uno">
 			<a class="derecha" href="index.php?controlador=Usuario&operacion=baja&parametro=<?php echo $usuario->id;?>">Donar de baixa</a>
-			
+		</div>			
 			<h2>Formulari de modificació de dades</h2>
 			
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
@@ -113,8 +114,12 @@
 		<section id="llistat">
 		<?php
 		   if (!empty($inscripcions)){		   	  	   	
+		    if (Login::isadmin())
+		    	echo  "<h2>preinscripcions</h2>";
+		    else
+				echo "<h2>Les meves preinscripcions</h2>";
+			
 		?>
-			<h2>Les meves preinscripcions</h2>
 			<table>
 			<tr>			  
 			 	<th>codi</th>	
@@ -145,9 +150,11 @@
 			}
 			echo "</table>";
 		 }
-		?>	 
-					<h2>Les meves subscripcions</h2>
-			<?php 
+		 if (Login::isAdmin())
+		 	echo "<h2>Subscripcions</h2>";
+		 else
+			echo	"<h2>Les meves subscripcions</h2>";
+		 
 				if (!$subscripcions)
 					echo "Encara no tinc cap suscripció";
 				else { ?>

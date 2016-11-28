@@ -66,6 +66,11 @@
 			?>
 				
 				</table>
+				<br>
+				<div class=uno>
+				<a href="javascript:alert('Volem exportar a XML');">
+				Exportar a XML</a>
+				</div>
 			<?php }?>
 			
 				

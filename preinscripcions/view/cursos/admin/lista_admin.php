@@ -105,7 +105,10 @@
 			  		echo "</div>";
 			  	echo "</div>";	
 			  }
-		}
+			  ?>
+			  <br>
+			  <a href=index.php?controlador=curso&operacion=exportar>Exportar cursos a XML</a>
+		<?php }
 			?>
 					
 		</section>

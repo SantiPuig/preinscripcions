@@ -59,7 +59,7 @@
 		<table>
 			<tr>
 				<th>dni</th><th>nom</th><th>telèfon mòbil</th><th>telèfon fix</th><th>email</th><th>data inscripció</th>
-				<th># inscripcions</th><th>Opcions</th>
+				<th># inscripcions</th><th class="ocultable">Opcions</th>
 			</tr>
 			<?php 
 				foreach ($alumnes as $a) {
@@ -71,7 +71,7 @@
 					echo "<td>$a->email</td>";
 					echo "<td>$a->data</td>";
 					echo "<td>$a->inscripcions</td>";
-					echo "<td><a href='index.php?controlador=usuario&operacion=modificacion&parametro=$a->id'>";
+					echo "<td class='ocultable'><a href='index.php?controlador=usuario&operacion=modificacion&parametro=$a->id'>";
 					echo "<img class='boton' src='images/botones/ver.png'> </a>";
 					echo "<a href='index.php?controlador=preinscripcio&operacion=borrar&parametro=$a->id_curs&usuari=$a->id&vista=detalles_curso'> ";
 					echo "<img class='boton' src='images/botones/delete.png'> </a></td>";
@@ -79,10 +79,17 @@
 						
 				}
 			
-			?>
-				
+			?>				
 				
 		</table>
+		<br>
+			<div class="uno">
+			<br>
+ 			<a href='index.php?controlador=curso&operacion=exportar&parametro=<?php echo $curso->id;?>'>Exportar preinscripcions</a>
+ 			<a href="javascript:print()";>Imprimir</a>
+ 			<br><br><br>
+ 			</div>
+ 		
 		<?php } ?>
 		</section>
 		

@@ -325,6 +325,57 @@ nav ul.menu>li:hover{
 	height:24px;
 	widht:24px;
 }
+.uno a {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 24px;
+		font-weight: 900;
+		background-color: #CCCCCC;
+		text-decoration: none;
+		color: #383838;
+		background-image: url(ima/dos.png);
+		background-repeat:  repeat-x;
+		background-position: left top;
+		padding: 5px;
+		border-top-width: 14px;
+		border-top-style: ridge;
+		border-top-color: #FFCC00;
+		border-right-color: #A48300;
+		border-bottom-color: #A48300;
+		border-left-color: #FFCC00;
+		border-right-width: 14px;
+		border-bottom-width: 14px;
+		border-left-width: 14px;
+		border-right-style: ridge;
+		border-bottom-style: ridge;
+		border-left-style: ridge;
+		
+	}
+.uno a:hover {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 24px;
+		font-weight: 900;
+		background-color: #CCCCCC;
+		text-decoration: none;
+		color: #FFFFFF;
+		background-image: url(ima/uno.png);
+		background-repeat:  repeat-x;
+		background-position: left top;
+		padding: 5px;
+		border-top-width: 14px;
+		border-top-style: ridge;
+		border-top-color: #A48300;
+		border-right-color: #FFCC00;
+		border-bottom-color: #FFCC00;
+		border-left-color: #A48300;
+		border-right-width: 14px;
+		border-bottom-width: 14px;
+		border-left-width: 14px;
+		border-right-style: ridge;
+		border-bottom-style: ridge;
+		border-left-style: ridge;
+	}
+
+
 
 /* FOOTER */
 footer{
@@ -339,4 +390,23 @@ footer{
 
 footer a:hover{
 	color: blue;
+}
+
+
+
+/* MEDIA QUERIES -- */
+@media print {
+	
+	header,footer,.uno,nav,#login,#logout,.ocultable {
+		display:none;
+	}
+	#llistat table{
+		margin: auto;
+		width: 80%;
+		padding-right:100px;
+		padding-left:0px;
+	}
+	#content table th{	
+		text-align:right;
+	}		
 }

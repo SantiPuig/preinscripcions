@@ -240,6 +240,31 @@
    			
    		}
    	}
+   	/*
+   	 *  Exporta dades del curs a un fitxer XML
+   	 */
+   	public function exportar($id)
+   	{
+   		if(!Login::isAdmin())
+   			throw new Exception ("Opció restringida només per a l'administrador");
+   			// recuperar curs de la BD
+   		$this->load('model/cursmodel.php');
+   		$this->load('model/PreinscripcioModel.php');
+   		$this->load('libraries/xml_library.php');
+   			
+   		$c=CursModel::getCurs($id);
+   		if (empty($c))
+   			throw new Exception("No es troba el curs");
+   		$alumnes=PreinscripcioModel::alumnes_preinscrits($id);
+   		$xml=XML::toXML($alumnes);
+   		$datos = array();
+   		$datos['usuario'] = Login::getUsuario();
+   		$datos['xml']=$xml;
+   		$datos['filename']="alumnes_preinscrits_curs_$c->codi-$c->nom";
+   		//echo $xml;
+   		$this->load_view('view/export_xml.php',$datos);   		
+   			 
+   	}
 }
    		
 ?>
