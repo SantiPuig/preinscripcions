@@ -30,6 +30,7 @@ class AreaformativaModel{
 
 	//retorna la area formativa a partir del seu ID
 	public static function getAreaFormativa($idarea=0){
+		$idarea=intval($idarea);
 		$consulta = "SELECT * FROM arees_formatives WHERE id=$idarea;";
 		$resultado = Database::get()->query($consulta);
 			
@@ -64,7 +65,7 @@ class AreaformativaModel{
 	}	
 	
 }
-class SusbcripcioModel{
+class SubscripcioModel{
 	public $id_usuari,$id_area,$data;
 	public function guardar(){
 	
@@ -75,10 +76,11 @@ class SusbcripcioModel{
 	public function borrar(){
 	
 		$consulta = "DELETE FROM subscripcions WHERE id_usuari=$this->id_usuari and id_area=$this->id_area;";
+	    //echo $consulta;
 		return Database::get()->query($consulta);
 	}
 	public static function suscripcions_alumne($id_alumne){
-		$consulta="Select a.nom,s.id_area,s.data 
+		$consulta="Select a.nom,s.id_area,s.data,s.id_usuari 
 					FROM subscripcions s 
 						inner join arees_formatives a on a.id=s.id_area
 					where s.id_usuari=$id_alumne";
@@ -89,6 +91,26 @@ class SusbcripcioModel{
 		$resultado->free();
 				
 		return $subs;			
+	}
+	/*
+	 *  Retorna tots els alumnes subscrits a una area determinada
+	 */
+	public static function alumnes_subscrits($idarea) {
+		$id=intval($idarea);
+		$consulta="SELECT s.id_usuari,dni,nom,telefon_mobil,telefon_fix,email,s.data,count(*) subscripcions
+					FROM usuaris u inner join subscripcions s on s.id_usuari=u.id
+						left join subscripcions s2 on s2.id_usuari=s.id_usuari
+					WHERE s.id_area=$id
+					group by  s.id_usuari,dni,nom,telefon_mobil,telefon_fix,email,s.data
+					order by data";
+		$subs=array();
+		//echo $consulta;
+		$resultado = Database::get()->query($consulta);
+		while ($s = $resultado->fetch_object())
+			$subs[]=$s;
+		$resultado->free();
+		return $subs;
+				
 	}
 	
 }

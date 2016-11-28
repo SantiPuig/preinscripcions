@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ca">
+	<head>
+		<base href="../preinscripcions/" />
+		<meta charset="UTF-8">
+		<title>CPannel - Administración</title>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+		<link rel="stylesheet" type="text/css" href="css/preinscripcions.css" />
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	
+	<body>
+					<header>
+				<figure>
+					<a href="index.php">
+						<img alt="Robs Micro Framework logo" src="images/logos/logo.png" />
+					</a>
+				</figure>
+				<hgroup>
+					<h1>Pre-Inscripcions</h1>
+					<h2>Preinscriu-te'n als cursos que mes t'agradin</h2>
+				</hgroup>
+			</header>
+					<div id="logout">
+				<span>
+					Hola 
+					<a href="index.php?controlador=Usuario&operacion=modificacion" title="modificar datos">
+						Admin</a>
+					<span class="mini">
+						 (admin@myapp.cat)					</span>
+					, ets administrador				</span>
+								
+				<form method="post">
+					<input type="submit" name="logout" value="Logout" />
+				</form>
+				
+				<div class="clear"></div>
+			</div>
+		 
+					<nav>
+						<ul class="menu">
+							<li><a href="index.php?controlador=Welcome&operacion=index">Inici</a></li>
+							<li><a href="index.php?controlador=Curso&operacion=listar">Ver Cursos</a></li>
+							
+													<li><a href="index.php?controlador=Preinscripcio&operacion=listarPreinscripcio">Les Meves preinscripcions</a></li>
+							<li><a href="index.php?controlador=Usuario&operacion=modificacion&parametro=1">Mis Dades</a></li>
+							
+						</ul>
+												<ul class="menu">
+							<li><a href="index.php?controlador=Cpannel&operacion=menu">Taulell de Control</a></li>
+						</ul>
+									
+											</nav>
+				
+		<section id="content">
+						<h2>Panel de Control</h2>
+			
+			<section class="admin">
+				<div class="col">
+					<figure>
+						<img alt="" src="images/panel/gestionUsuarios.jpg" width="150">
+					</figure>
+					<div>
+						<h3>Gestió de Usuaris</h3>
+						<a href="index.php?controlador=Usuario&operacion=registro">Agregar usuari</a><br/>
+						<a href="index.php?controlador=Usuario&operacion=listarTodos">Llistar Usuaris</a><br/>
+						<a href="index.php?controlador=Usuario&operacion=admModificar">Modificar usuari</a><br/>
+						<a href="index.php?controlador=Usuario&operacion=admBorrar">Esborrar usuari</a><br/>
+					</div>
+				</div>
+				
+				<div class="col">
+					<figure>
+						<img alt="" src="images/panel/gestionCursos.png" width="150">
+					</figure>
+					<div>
+						<h3>Gestió de Cursos</h3>
+						<a href="index.php?controlador=Curso&operacion=agregar">Agregar Curs</a><br/>
+						<a href="index.php?controlador=Curso&operacion=listar">Llistar Curs</a><br/>
+						<a href="index.php?controlador=Curso&operacion=admModificar">Modificar Curs</a><br/>
+						<a href="index.php?controlador=Curso&operacion=admBorrar">Esborrar Curs</a><br/>
+					</div>	
+				</div>
+			</section>
+			
+						<section class="admin">
+				<div class="col">
+					<figure>
+						<img alt="" src="images/panel/gestionArea.png" width="150">
+					</figure>
+					<div>
+						<h3>Gestió Àreas Formativa</h3>
+						<a href="">Agregar Àrea</a><br/>
+						<a href="">Llistar Àrea</a><br/>
+						<a href="">Modificar Àrea</a><br/>
+						<a href="">Esborrar Àrea</a><br/>
+					</div>
+				</div>
+				
+				<div class="col">
+					<figure>
+						<img alt="" src="images/panel/gestionPre.jpg" width="150">
+					</figure>
+					<div>
+						<h3>Gestió Pre-inscripcions</h3>
+						<a href="index.php?controlador=Preinscripcio&operacion=guardarPreins&parametro=$cerca->dni">Agregar Pre-Inscripció</a><br/>
+						<a href="">Llistar Pre-Inscripció</a><br/>
+						<a href="">Esborrar Pre-Inscripció</a><br/>
+						<a href="">Exportar XML</a><br/>
+						<a href="">Imprimir Llistat</a><br/>
+					</div>	
+				</div>
+			</section>
+			
+			<section class="admin">
+				<div class="col">
+					<figure>
+						<img alt="" src="images/panel/gestionSubs.jpg" width="150">
+					</figure>
+					<div>
+						<h3>Gestión Subscripcions</h3>
+						<a href="">Listar Usuaris Subscrits</a><br/>
+						<a href="">Agregar Subscripció</a><br/>
+						<a href="">Eliminar Subscripció</a><br/>
+
+					</div>
+				</div>
+
+				<div class="col">
+					<figure>
+						<img alt="" src="images/panel/estadisticas.jpeg" width="150">
+					</figure>
+					<div>
+						<h3>Estadísticas</h3>
+						<a href="index.php?controlador=Cpannel&operacion=menu">Actualizar Datos</a><br/><br/>
+						<label class="resEs">Total Usuaris Registrats:</label><b class="totales">  14</b><br/>
+						<label class="resEs">Total Cursos Publicats:</label><b class="totales">  17</b><br/>				
+						<label class="resEs">Total Areas Formatives: </label><b class="totales">  12</b><br/>
+						<label class="resEs">Total Pre-Inscripcions:</label><b class="totales">  29</b><br/>
+						<label class="resEs">Total Subscripcions</label><b class="totales">  15</b><br/>
+					</div>
+				</div>
+				
+			</section>
+			
+
+
+		</section>
+		
+					<footer>
+				<p>  
+					<a href="index.php">Pre-Inscripcions - CIFO del Vallès</a>. 
+         		</p>
+			</footer>
+		    </body> 
+</html>

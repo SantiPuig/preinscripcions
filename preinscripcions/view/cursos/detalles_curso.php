@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -22,28 +22,29 @@
 		<section id="content">
 			
 		<h2>Detalls del curs <?php echo $curso->codi;?></h2>	
+		<table>
 		<?php 
 			$torns=array('M'=>'Mati', 'T'=>'Tarda','C'=>'Complert');
 			//var_dump($torns);
 			
-			echo "<b>codi</b>:$curso->codi<br>";
-			echo "<b>Area formativa:</b>$areaformativa<br>";
-			echo "<b>Nom:</b>$curso->nom<br>";
-			echo "<b>Descripció:</b>$curso->descripcio<br>";
-			echo "<b>hores:</b>$curso->hores<br>";
-			echo "<b>data inici:</b>$curso->data_inici<br>";
-			echo "<b>data fi:</b>$curso->data_fi<br>";
-			echo "<b>horari:</b>$curso->horari<br>";
+			echo "<tr><th>codi</th><td>:$curso->codi</td></tr>";
+			echo "<tr><th>Area formativa:</th><td>$areaformativa</td></tr>";
+			echo "<tr><th>Nom:</th><td>$curso->nom</td></tr>";
+			echo "<tr><th>Descripció:</th><td>$curso->descripcio</td></tr>";
+			echo "<tr><th>hores:</th><td>$curso->hores</td></tr>";
+			echo "<tr><th>data inici:</th><td>$curso->data_inici</td></tr>";
+			echo "<tr><th>data fi:</th><td>$curso->data_fi</td></tr>";
+			echo "<tr><th>horari:</th><td>$curso->horari</td></tr>";
 			//var_dump($curso);
 			if (!$curso->torn)
 				$torn="Sense definir";
 			else 
 				$torn=$torns[strtoupper($curso->torn)];			
 		
-			echo "<b>torn:</b>$torn<br>";
-			echo "<b>tipus:</b>$curso->tipus<br>";
-			echo "<b>requisits d'accés:</b>$curso->requisits<br>";
-			
+			echo "<tr><th>torn:</th><td>$torn</td></tr>";
+			echo "<tr><th>tipus:</th><td>$curso->tipus</td></tr>";
+			echo "<tr><th>requisits d'accés:</th><td>$curso->requisits</td></tr>";
+			echo "</table><br>";
 			if ($usuario)
 				echo "<input type='button' onclick='location.href=\"index.php?controlador=Preinscripcio&operacion=nuevo&parametro=$curso->id\";' value='Inscriure'/><br>";
 			
@@ -51,7 +52,7 @@
 				
 		?>
  				
-			<a class='volver' href=index.php>Volver a inicio</a>			
+			<a class='volver' href=index.php>Tornar a l'inici</a>			
 		</section>
 		
 		<?php Template::footer();?>

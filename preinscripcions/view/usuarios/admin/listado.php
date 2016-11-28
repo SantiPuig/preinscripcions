@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -57,7 +57,7 @@
 			  }
 			?>
 			
-			<a class='volver' href=index.php>Volver a inicio</a>			
+			<a class='volver' href=index.php>Tornar a l'inici</a>			
 		</section>
 		
 		<?php Template::footer();?>

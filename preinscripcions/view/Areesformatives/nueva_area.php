@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cat">
 	<head>
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta charset="UTF-8">
@@ -31,10 +31,13 @@
 			<?php 
 			   foreach($arees as $a) {
 			   	  echo "<tr><td>$a->id</td><td>$a->nom</td>";
-			   	  echo "<td><a href='index.php?controlador=areaformativa&operacion=modificar&parametro=$a->id'>";
+			   	  echo "<td><a href='index.php?controlador=areaformativa&operacion=ver&parametro=$a->id' title='veure alumnes preinscrits '>";
+			   	  echo "<img class='boton' src='images/botones/ver.png'> </a>";
+			   	  echo "<a href='index.php?controlador=areaformativa&operacion=modificar&parametro=$a->id' title='Modificar area formativa'>";
 			 	  echo "<img class='boton' src='images/botones/modify.png'></a>" ; 
-			  	  echo "<a href='index.php?controlador=areaformativa&operacion=borrar&parametro=$a->id'> ";
+			  	  echo "<a href='index.php?controlador=areaformativa&operacion=borrar&parametro=$a->id' title=Donar de baixa area formativa'> ";
   		  		  echo "<img class='boton' src='images/botones/delete.png'> </a></td></tr>";
+  		  		  
 			   }
 			?>
 						   

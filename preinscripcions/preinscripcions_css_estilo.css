@@ -33,31 +33,6 @@ RESET DE ESTILO Y REGLAS GENERALES
 	font-size: 1.2em;
 }
 
-.flex-container{
-	display: flex;
-}
-
-.flex{
-	flex:1;
-	font-size:0.8em;
-}
-.flexmac{
-	flex:1;
-	font-size:0.5em;
-}
-.flexgran{
-	flex:3;
-	font-size:0.80em;
-}
-
-.llistat{
-	font-weight: bold;
-}
-
-.centrado{
-	text-align: center;
-}
-
 h1, h2, h3{
 	margin: 10px 0px 10px 0px;
 }
@@ -73,8 +48,8 @@ a{
 }
 
 img.logo{
-	height: 100px;
-	width: 100px;
+	height: 30px;
+	width: 30px;
 	vertical-align: middle;
 }
 
@@ -89,7 +64,7 @@ html{
 body{
 	background-color: #fff;
 	font-family: arial, verdana;
-	width: 90%;
+	width: 80%;
 	padding: 2%;
 	margin: 10px auto 10px auto;
 	box-shadow: 0px 0px 4px rgba(60,60,60,0.6);	
@@ -98,13 +73,10 @@ body{
 
 /* HEADER */
 header{
-	padding: 0px;
+	padding: 20px;
 	background-color: #eef;
 	color: white;
-	text-shadow: 2px 2px 3px #99a;
-	background-image: url(../images/soc.png);
-	background-size: 100% 100%;
-	padding-left:10px;
+	text-shadow: 1px 1px 3px #99a;
 }
 
 header{
@@ -112,21 +84,15 @@ header{
 }
 
 header h1{
-	font-size: 0.9em;
-	padding-bottom:40px;	
-}
-
-header h2{
-	font-size: 0.9em;
-	padding-bottom:0px;	
+	font-size: 3em;	
 }
 
 header figure{
-	flex: 2;
+	flex: 1;
 }
 
 header figure img{
-	width: 600%;
+	width: 80%;
 }
 
 header hgroup{
@@ -141,7 +107,7 @@ header hgroup{
 }
 
 #login input{
-	width: 100px;
+	width: 80px;
 }
 
 #logout img{
@@ -206,61 +172,27 @@ nav ul.menu>li:hover{
 	width: 90%;
 }
 
-#llistat table{
-	margin: auto;
-	width: 100%;
-}
-
 #content table th{
 	color: white;
 	background-color: blue;
 	text-align: center;
 	font-weight: bold;
 }
-
-#llistat table th{
-	color: white;
-	background-color: blue;
-	text-align: center;
-	font-weight: bold;
-}
-
-#content table th[colspan]{
-	background-color:skyblue;
-}
-
 #content table td, #content table th{
 	padding: 10px;
 }
-
-#llistat table td, #content table th{
-	padding: 10px;
-}
-
 #content table tr:nth-of-type(even){
 	background-color: #eef;
 }
 
-#llistat table tr:nth-of-type(even){
-	background-color: #eef;
-}
-
-
 #content form input{
 	margin-top: 5px;
 	padding: 4px;
-	
 }
-#content form input[name=nom]{
-	width: 400px;
-}
-
 #content form label{
 	display: inline-block;
 	min-width: 140px;
 }
-
-
 
 #content form img.imagenactual{
 	width: 100px;
@@ -269,69 +201,13 @@ nav ul.menu>li:hover{
 	float: right;
 }
 
-#filtre form input{
-	margin-top: 1px;
-	padding: 1px;
-	width:80px
-}
-#filtre form label{
-	display: inline-block;
-	margin.left:10px;
-	min-width: 140px;
-}
-#filtre form input[type=submit]{
-	padding-left:350px;
-	padding-right:390px;
-	align:center;
-	color:#FFFFFF;
-	background-color:#00ff00;
-}
-#filtre form fieldset{
-	display:inline-block;
-	margin-left: 2px;
-	margin-right: 2px;
-	padding-top: 1em;
-	padding_bottom: 1em;
-	padding-left: 1em;
-	padding-right: 1em;
-
-}
-
-
-#filtre dates{
-	display:inline-block;
-	margin-left: 2px;
-	margin-right: 2px;
-	padding-top: 1em;
-	padding_bottom: 1em;
-	padding-left: 1em;
-	padding-right: 1em;
-	width:200px;
-}
-
-#filtre filtres{
-	display:inline-block;
-	margin-left: 2px;
-	margin-right: 2px;
-	padding-top: 0.35em;
-	padding_bottom: 0.625em;
-	padding-left: 0.75em;
-	padding-right: 0.75em;
-	width:300px;
-}
-
-
-.boton{
-	height:24px;
-	widht:24px;
-}
 
 /* FOOTER */
 footer{
 	padding: 20px;
 	background-color: #eef;
 	
-	background-image: url('../images/curso2.jpg');
+	background-image: url('../images/logos/wide.png');
 	background-repeat: no-repeat;
 	background-size: 40%;
 	background-position: right top;
