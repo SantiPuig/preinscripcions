@@ -68,7 +68,7 @@
 				</table>
 				<br>
 				<div class=uno>
-				<a href="javascript:alert('Volem exportar a XML');">
+				<a href="index.php?controlador=areaformativa&operacion=exportar&parametro=<?php echo $area->id; ?>">
 				Exportar a XML</a>
 				</div>
 			<?php }?>

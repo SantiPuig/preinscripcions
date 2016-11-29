@@ -45,9 +45,15 @@
 			echo "<tr><th>tipus:</th><td>$curso->tipus</td></tr>";
 			echo "<tr><th>requisits d'accés:</th><td>$curso->requisits</td></tr>";
 			echo "</table><br>";
-			if ($usuario)
-				echo "<input type='button' onclick='location.href=\"index.php?controlador=Preinscripcio&operacion=nuevo&parametro=$curso->id\";' value='Inscriure'/><br>";
-				
+			
+			if (!Login::isAdmin())				
+				if ($usuario)
+						echo "<input type='button' onclick='location.href=\"index.php?controlador=Preinscripcio&operacion=nuevo&parametro=$curso->id\";' value='Inscriure'/><br>";				
+				else {
+					echo "<br>Per preinscriure's cal estar registrat<br><br><br><br> <div class='uno'>";
+					echo "<a href=index.php?controlador=usuario&operacion=registro>Registrar-se</a></div><br><br><br>";
+				}
+			else {
 				
 		?>
  			<br>
@@ -55,9 +61,10 @@
  			<a href='index.php?controlador=curso&operacion=exportar&parametro=<?php echo $curso->id;?>'>Exportar preinscripcions</a>
  			<a href='javascript:alert('Volem imprimir el curs <?php echo $curso->id;?>');>Imprimir</a>
  			</div>
- 			<br>
+ 			<br> 
+ 			<?php } ?>
  			
-			<a class='volver' href=index.php>Tornar a l'inici</a>			
+			<a class='volver' href=index.php?controlador=curso&operacion=listar>Tornar a l'inici</a>			
 		</section>
 		
 		<?php Template::footer();?>

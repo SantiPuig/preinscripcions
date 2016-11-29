@@ -19,7 +19,10 @@
    	//formulari de filtre. Si no, caldrà buscar les dades i passar-li a la vista.
    	
     if ($_SERVER["REQUEST_METHOD"]=='GET' || empty($_POST['filtros']))
+    {
     	$filtros=array();
+    	$datos['cursos']=CursModel::cursos();
+    }
    	else {
 	    //echo "entro en else";
    		$filtros=$_POST['filtros'];
@@ -264,6 +267,28 @@
    		//echo $xml;
    		$this->load_view('view/export_xml.php',$datos);   		
    			 
+   	}
+   	public function exportar_cursos()
+   	{
+   		if(!Login::isAdmin())
+   			throw new Exception ("Opció restringida només per a l'administrador");
+   		// recuperar curs de la BD   		
+   		
+   		$this->load('libraries/xml_library.php');
+   		$this->load('model/cursmodel.php');
+   		
+   		$cursos=CursModel::cursos();
+   		
+   		if (empty($cursos))
+   			throw new Exception("No hi ha cursos a exportar");
+   		$xml=XML::toXML($cursos);
+   		$datos = array();
+   		$datos['usuario'] = Login::getUsuario();
+   		$datos['xml']=$xml;
+   		$datos['filename']="cursos";
+   			//echo $xml;
+   		$this->load_view('view/export_xml.php',$datos);
+   	
    	}
 }
    		

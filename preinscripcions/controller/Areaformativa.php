@@ -245,6 +245,27 @@
    			$this->load_view('view/exito.php', $datos);*/   			
    		}
    	}
+   	public function exportar($id)
+   	{
+   		if(!Login::isAdmin())
+   			throw new Exception ("Opció restringida només per a l'administrador");
+   			// recuperar curs de la BD
+   			$this->load('model/AreaformativaModel.php');
+   			$this->load('model/PreinscripcioModel.php');
+   			$this->load('libraries/xml_library.php');
+   	
+   			$alumnes=SubscripcioModel::alumnes_subscrits($id);
+   			if (empty($alumnes))
+   				throw new Exception("No es troben alumnes en aquesta area");   			
+   			$xml=XML::toXML($alumnes);
+   			$datos = array();
+   			$datos['usuario'] = Login::getUsuario();
+   			$datos['xml']=$xml;
+   			$datos['filename']="alumnes_subscrits_area-$id";
+   				//echo $xml;
+   			$this->load_view('view/export_xml.php',$datos);
+   					
+   	}
 }
    		
 ?>

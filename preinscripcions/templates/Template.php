@@ -55,7 +55,7 @@
 		public static function menu($usuario){ ?>
 			<nav>
 				<ul class="menu">
-					<li><a href="index.php">Inici</a></li>
+					<li><a href="index.php?controlador=welcome&operacion=credits">Credits</a></li>
 					<li><a href="index.php?controlador=curso&operacion=listar">Cursos</a></li>
 				<?php if (!$usuario)	{?>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registre</a></li>

@@ -8,10 +8,15 @@
 		//Carga la portada del sitio (vista welcome_message)
 		public function index(){
 				//preparar los datos a pasar a la vista
-				$datos = array('usuario'=>Login::getUsuario());
+				//$datos = array('usuario'=>Login::getUsuario());
 				
-				//cargar la vista
-				$this->load_view('view/welcome_message.php', $datos);
+				//cargar la vista la llista de cursos per defecte.
+				header('location:index.php?controlador=curso');
+		}
+		public function credits() {
+			$datos = array('usuario'=>Login::getUsuario());
+			//cargar la vista
+			$this->load_view('view/welcome_message.php', $datos);
 		}
 		public function panel() {
 			$query="select sum(usuarios) usuarios,sum(subs) subs,sum(cursos) cursos,sum(preins) preinscripcions

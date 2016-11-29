@@ -59,13 +59,17 @@ class CursModel{
 	
 	//Este método retorna todos los cursos de la base de datos
 	public static function cursos(){
-		$consulta = "select c.*,af.nom nom_area
+		$consulta = "select c.*,af.nom nom_area,count(*) preinscrits
 						from cursos c left join arees_formatives af on af.id=c.id_area
+							left join preinscripcions p on p.id_curs=c.id 
 						where data_inici is null
 						or data_inici=''
 						or data_inici>now()
+					group by c.id,c.codi,c.id_area,c.nom,c.descripcio,c.hores,c.data_inici,
+						c.data_fi,c.horari,c.torn,c.tipus,c.requisits,af.nom
 						order by af.nom,data_inici;";
 	
+		//echo $consulta;
 		$resultado = Database::get()->query($consulta);
 		
 		$cursos=Array();
@@ -79,7 +83,10 @@ class CursModel{
 	//Este método retorna todos los cursos que coincidan con el filtro pasado.
 	// se pasará por parámetro un array tipo campo:valor que definirá el campo a filtrar y el valor a filtrar
 	public static function cursos_filtrats($filtros=array()){
-		$consulta = "SELECT c.*,af.nom nom_area FROM cursos c left join arees_formatives af on af.id=c.id_area ";
+		$consulta = "
+			select c.*,af.nom nom_area,count(*) preinscrits
+						from cursos c left join arees_formatives af on af.id=c.id_area
+							left join preinscripcions p on p.id_curs=c.id ";
 		$where="";
 		if (is_array($filtros) || is_object($filtros))
 			foreach ($filtros as $campo=>$valor) {
@@ -94,6 +101,8 @@ class CursModel{
 			}
 		if ($where)
 			$consulta.=" where ".substr($where, 5);
+		$consulta.=" group by c.id,c.codi,c.id_area,c.nom,c.descripcio,c.hores,c.data_inici,
+						c.data_fi,c.horari,c.torn,c.tipus,c.requisits,af.nom ";
 		$consulta.=" order by af.nom;";
 		
 			

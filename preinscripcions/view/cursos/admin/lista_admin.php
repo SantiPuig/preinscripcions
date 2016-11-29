@@ -19,9 +19,9 @@
 		?>
 		
 	
-		<section id="filtre">
-			<h2>LLISTAT CURSOS</h2><strong>		
-			<div id="filtreform">		
+		<section id="filtre">			
+			<div id="filtreform" align=center>
+				<h2>LLISTAT CURSOS</h2>			
 				<form method="post" enctype="multipart/form-data" autocomplete="off">
 					<fieldset id="dates">
 						<legend>Seleccio per data d'inici</legend>
@@ -73,28 +73,27 @@
 		<section id="content">
 			
 		<?php 
-		if (!empty($cursos)) {?>	
-			<strong>
-			    <div class="llistat_cursos flex-container">
-			    
-				<div class="flex">Codi curs</div>				
-				<div class="flex">Nom del curs</div>				
-				<div class="flex">Número d'hores</div>				
-				<div class="flex">Data inici</div>				
-				<div class="flex">Data fi</div>		
-				<div class="flex">Opcions</div>		
-			
-			</div></strong></strong></b>
+		if (!empty($cursos)) {?>
+			<table>
+			<tr>
+			<th>Codi curs</th><th>Nom del curs</th><th>Número d'hores</th><th>Data inici</th>				
+				<th>Data fi</th><th>Preinscrits</th><th>Opcions</th>
+			</tr>
 	
 			<?php
+			  $nom_af="zz";
 			  foreach($cursos as $curs){
-			  	    echo "<div class='contenido flex-container'>";
-			  		echo "<div class='flex'>$curs->codi</div>";
-			  		echo "<div class='flex'><a href='index.php?controlador=curso&operacion=ver&parametro=$curs->id'>$curs->nom</a></div>";
-			  		echo "<div class='flex'>$curs->hores</div>";
-			  		echo "<div class='flex'>$curs->data_inici</div>";
-			  		echo "<div class='flex'>$curs->data_fi</div>";
-			  		echo "<div class='flex'>";
+				  	if($curs->nom_area!=$nom_af){
+				  		$nom_af=$curs->nom_area;
+				  		echo "<tr><th colspan=7 align=Center>$nom_af</th></tr>";
+				  	}
+			  	    echo "<tr><td>$curs->codi</td>";
+			  		echo "<td><a href='index.php?controlador=curso&operacion=ver&parametro=$curs->id'>$curs->nom</a></td>";
+			  		echo "<td>$curs->hores</td>";
+			  		echo "<td>$curs->data_inici</td>";
+			  		echo "<td>$curs->data_fi</td>";
+			  		echo "<td>$curs->preinscrits</td>";
+			  		echo "<td>";
 			  		echo "<a href='index.php?controlador=curso&operacion=ver&parametro=$curs->id' title='veure detalls del curs i quins alumnes hi ha preinscrits'> ";
 			  		echo "<img class='boton' src='images/botones/ver.png' height='24' width='24'> </a>"; 
 			  		echo "<a href='index.php?controlador=curso&operacion=modificar&parametro=$curs->id'> ";								
@@ -102,13 +101,16 @@
 			  		echo "<a href='index.php?controlador=curso&operacion=borrar&parametro=$curs->id'> ";
 			  		echo "<img class='boton' src='images/botones/delete.png' height='24' width='24'> </a>";
 			  			
-			  		echo "</div>";
-			  	echo "</div>";	
+			  		echo "</td></tr>";
+			  		
 			  }
 			  ?>
+			  </table>
 			  <br>
-			  <a href=index.php?controlador=curso&operacion=exportar>Exportar cursos a XML</a>
-		<?php }
+			  <div class="uno"><a href=index.php?controlador=curso&operacion=exportar_cursos>Exportar cursos a XML</a>
+			  </div>
+			  
+		<?php  }
 			?>
 					
 		</section>
