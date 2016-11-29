@@ -108,6 +108,8 @@
 			  </table>
 			  <br>
 			  <div class="uno"><a href=index.php?controlador=curso&operacion=exportar_cursos>Exportar cursos a XML</a>
+	   		  <a href="javascript:print()";>Imprimir</a>
+ 	
 			  </div>
 			  
 		<?php  }

@@ -5,6 +5,21 @@
 		<meta charset="UTF-8">
 		<title>Registro de usuarios</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
+		
+		<script type="text/javascript">	
+		function validar_dni(dni){
+			alert(dni);
+			letra = substr(dni, -1);
+			numeros = substr(dni, 0, -1);
+			if(substr("TRWAGMYFPDXBNJZSQVHLCKE", numeros%23, 1) == letra && strlen(numeros)==8 ){
+				document.getElementById('boton').removeAttribute('disabled');
+			}else{	
+				alert("DNI no válido. No coincide la letra ");
+				document.getElementById('boton').setAttribute('disabled','disabled');
+			}
+		}
+		</script>
+	
 	</head>
 	
 	<body>
@@ -16,13 +31,14 @@
 			
 			Template::menu($usuario); //pone el menú
 		?>
-		
-		<section id="content">
+	
+		<section id="content" onsubmit=validar_dni()>
 			<h2>Formulari de registre</h2>
-			<form method="post" enctype="multipart/form-data" autocomplete="off">
+			<form method="post" name="usuari" enctype="multipart/form-data" autocomplete="off">
 			
 				<label>DNI:</label>
-				<input type="text" name="dni" required="required" placeholder="Introduir el vostre DNI"/>
+				<input type="text" name="dni" required="required" placeholder="Introduir el vostre DNI"
+					pattern="^\d{8}[a-zA-Z]$" onchange="validar_dni(this.value);"/>
 				<br>
 				
 				<label>Data de naixement:</label>
@@ -84,7 +100,7 @@
 				</select>
 				<br>
 		
-				<input type="submit" name="guardar" value="guardar"/><br/>
+				<input id="boton" type="submit" disabled="disabled" name="guardar" value="guardar"/><br/>
 			</form>
 		</section>
 		

@@ -229,11 +229,16 @@ nav ul.menu>li:hover{
 	background-color:skyblue;
 }
 
-#content table td, #content table th{
+#content table td, #llistat table th{
 	padding: 10px;
 }
 
-#llistat table td, #content table th{
+#llistat table td {
+	padding: 2px;
+	text-align:center;
+}
+
+#content table th{
 	padding: 10px;
 }
 

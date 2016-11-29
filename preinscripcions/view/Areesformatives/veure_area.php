@@ -18,9 +18,9 @@
 		?>
 		
 		<section id="content">
-		
+	
 			
-			<a class="derecha" href='index.php?controlador=areaformativa&operacion=modificar&parametro=<?php echo $area->id;?>'> 
+			<a class="derecha ocultable" href='index.php?controlador=areaformativa&operacion=modificar&parametro=<?php echo $area->id;?>'> 
  			 	  <img class='boton' src='images/botones/modify.png'></a>
   			
 			<h2>Consulta area formativa</h2>
@@ -35,7 +35,10 @@
 			<input type="text" name="nom" 
 					value="<?php echo $area->nom;?>" disabled/>
 			<br>
+			
 			</form>
+		</section>
+		<section id="llistat">
 			<?php  if (empty($subscripcions)) { ?>
 				<h2>No hi ha susbcripcions d'aquesta area</h2>
 			<?php } else {?>
@@ -43,7 +46,7 @@
 				<table>
 			<tr>
 				<th>dni</th><th>nom</th><th>telèfon mòbil</th><th>telèfon fix</th><th>email</th><th>data inscripció</th>
-				<th># inscripcions</th><th>Opcions</th>
+				<th># inscripcions</th><th class='ocultable'>Opcions</th>
 			</tr>
 			<?php 
 				foreach ($subscripcions as $a) {
@@ -55,7 +58,7 @@
 					echo "<td>$a->email</td>";
 					echo "<td>$a->data</td>";
 					echo "<td>$a->subscripcions</td>";
-					echo "<td><a href='index.php?controlador=usuario&operacion=modificacion&parametro=$a->id_usuari'>";
+					echo "<td class='ocultable'><a href='index.php?controlador=usuario&operacion=modificacion&parametro=$a->id_usuari'>";
 					echo "<img class='boton' src='images/botones/ver.png'> </a>";
 					echo "<a href='index.php?controlador=Areaformativa&operacion=baja&parametro=$area->id&usuari=$a->id_usuari&vista=detalles_curso'> ";
 					echo "<img class='boton' src='images/botones/delete.png'> </a></td>";
@@ -70,6 +73,8 @@
 				<div class=uno>
 				<a href="index.php?controlador=areaformativa&operacion=exportar&parametro=<?php echo $area->id; ?>">
 				Exportar a XML</a>
+				<a href="javascript:print()";>Imprimir</a>
+ 	
 				</div>
 			<?php }?>
 			

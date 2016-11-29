@@ -85,8 +85,10 @@
    	   	  throw new Exception("Error en intentar donar de baixa de la subscripció");
    	   if (empty($_GET['vista']))
    	      header("location:index.php?controlador=Areaformativa");
-   	   elseif ($_GET['vista']='usuari')
+   	   elseif ($_GET['vista']=='usuari')
    	      header("location:index.php?controlador=usuario&operacion=modificacion&parametro=$idus");
+   	   elseif ($_GET['vista']=='detalles_curso')
+   	   	  header("location:index.php?controlador=areaformativa&operacion=ver&parametro=$id");
    	 /* var_dump($_GET);
    	  echo $idus;
    	  echo "<br> ahora me dirigia a: index.php?controlador=usuario&operacion=modificacion&parametro=$idus";

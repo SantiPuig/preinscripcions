@@ -30,15 +30,15 @@
 				//real_escape_string evita las SQL Injections
 				$u->dni = $conexion->real_escape_string($_POST['dni']);
 				$u->data_naixement = $conexion->real_escape_string($_POST['data_naixement']);
-				$u->nom= $conexion->real_escape_string($_POST['nom']);
-				$u->cognom1= $conexion->real_escape_string($_POST['cognom1']);
-				$u->cognom2= $conexion->real_escape_string($_POST['cognom2']);
+				$u->nom= strtoupper($conexion->real_escape_string($_POST['nom']));
+				$u->cognom1= strtoupper($conexion->real_escape_string($_POST['cognom1']));
+				$u->cognom2= strtoupper($conexion->real_escape_string($_POST['cognom2']));
 				$u->estudis= $conexion->real_escape_string($_POST['estudis']);
 				$u->situacio_laboral= $conexion->real_escape_string($_POST['situacio_laboral']);
 				$u->prestacio= $conexion->real_escape_string($_POST['prestacio']);
 				$u->telefon_mobil= $conexion->real_escape_string($_POST['telefon_mobil']);
 				$u->telefon_fix= $conexion->real_escape_string($_POST['telefon_fix']);
-				$u->email= $conexion->real_escape_string($_POST['email']);
+				$u->email= strtolower($conexion->real_escape_string($_POST['email']));
 				/*
 				$u->imatge= Config::get()->default_user_image;
 				
@@ -126,12 +126,12 @@
 				//comprueba que el usuario se valide correctamente
 								
 				//recupera los nuevos datos del formulario
-				$u->nom = $conexion->real_escape_string($_POST['nom']);
-				$u->cognom1 = $conexion->real_escape_string($_POST['cognom1']);
-				$u->cognom2 = $conexion->real_escape_string($_POST['cognom2']);
+				$u->nom = strtoupper($conexion->real_escape_string($_POST['nom']));
+				$u->cognom1 = strtoupper($conexion->real_escape_string($_POST['cognom1']));
+				$u->cognom2 = strtoupper($conexion->real_escape_string($_POST['cognom2']));
 				$u->data_naixement = $_POST['data_naixement'];
 				$u->dni = $conexion->real_escape_string($_POST['dni']);
-				$u->email = $conexion->real_escape_string($_POST['email']);
+				$u->email = strtolower($conexion->real_escape_string($_POST['email']));
 				$u->estudis = $conexion->real_escape_string($_POST['estudis']);
 				$u->prestacio = $conexion->real_escape_string($_POST['prestacio']);
 				$u->situacio_laboral = $conexion->real_escape_string($_POST['situacio_laboral']);		
@@ -178,8 +178,11 @@
 		//solicita confirmación
 		public function baja($p){		
 			//recuperar usuario
-			if (Login::isAdmin()) //si es el administrador
+			if (Login::isAdmin()) { //si es el administrador 
 				$u=UsuarioModel::getUsuario($p); //traer el usuario que llega por parametro
+				if (Login::getUsuario()->id==$u->id)
+					throw new Exception("No es pot donar de baixa l'usuari administrador");
+			}
 			else	{
 				$u = Login::getUsuario(); //se traera el usuario que este logeado
 				if($p!=$u->id)
