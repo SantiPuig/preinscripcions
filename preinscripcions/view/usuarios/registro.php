@@ -6,18 +6,37 @@
 		<title>Registro de usuarios</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 		
-		<script type="text/javascript">	
-		function validar_dni(dni){
-			alert(dni);
-			letra = substr(dni, -1);
-			numeros = substr(dni, 0, -1);
-			if(substr("TRWAGMYFPDXBNJZSQVHLCKE", numeros%23, 1) == letra && strlen(numeros)==8 ){
-				document.getElementById('boton').removeAttribute('disabled');
-			}else{	
-				alert("DNI no válido. No coincide la letra ");
-				document.getElementById('boton').setAttribute('disabled','disabled');
+		<script type="text/javascript">
+		function valida_dni(dni) {
+			  var numero
+			  var letr
+			  var letra
+			  var expresion_regular_dni
+			 
+			  expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+			 
+			  if(expresion_regular_dni.test (dni) == true){
+			     numero = dni.substr(0,dni.length-1);
+			     letr = dni.substr(dni.length-1,1);
+			     numero = numero % 23;
+			     letra='TRWAGMYFPDXBNJZSQVHLCKET';
+			     letra=letra.substring(numero,numero+1);
+			    if (letra!=letr.toUpperCase()) {
+			       alert('Dni erroni, la lletra no es correspon');
+				   document.getElementById('boton').setAttribute('disabled','disabled');
+			     }else{
+						document.getElementById('boton').removeAttribute('disabled');
+			     }
+			  }else{ 
+			     	alert('Dni erroni, format no vàlid');
+					document.getElementById('boton').setAttribute('disabled','disabled');
+			   }
 			}
+		function mayuscula(obj,id){
+			obj=obj.toUpperCase();
+			document.getElementById(id).value=obj;
 		}
+		
 		</script>
 	
 	</head>
@@ -37,8 +56,9 @@
 			<form method="post" name="usuari" enctype="multipart/form-data" autocomplete="off">
 			
 				<label>DNI:</label>
-				<input type="text" name="dni" required="required" placeholder="Introduir el vostre DNI"
-					pattern="^\d{8}[a-zA-Z]$" onchange="validar_dni(this.value);"/>
+				<input type="text" id="dni1" name="dni" required="required" placeholder="Introduir el vostre DNI"
+					onblur="mayuscula(this.value,this.id)"
+					pattern="^\d{8}[a-zA-Z]$" onchange="valida_dni(this.value);"/>
 				<br>
 				
 				<label>Data de naixement:</label>
@@ -49,15 +69,18 @@
 				<br/>
 	
 				<label>Nom:</label>
-				<input type="text" name="nom" required="required" 
+				<input type="text" id="nom" name="nom" required="required" 
+					onblur="mayuscula(this.value,this.id)"
 				/><br/>
 					
 				<label>cognom1:</label>
-				<input type="text" name="cognom1" required="required" 
+				<input type="text" id="cognom1" name="cognom1" required="required" 
+					onblur="mayuscula(this.value,this.id)"
 					"/><br/>
 					
 				<label>cognom2:</label>
-				<input type="text" name="cognom2" required="required" 
+				<input type="text" id="cognom2" name="cognom2" required="required" 
+					onblur="mayuscula(this.value,this.id)"
 					/><br>	
 				
 				<label>Email:</label>
@@ -67,10 +90,12 @@
 				
 				<label>Mobil:</label>
 				<input type="text" name="telefon_mobil" required="required"
+					pattern="^[0-9]{9}$"
 				    /><br>
 				
 				<label>Fix:</label>
 				<input type="text" name="telefon_fix" 
+					pattern="^[0-9]{9}$"
 				    /><br>
 				<label>Estudis:</label>
 				<select name="estudis">
